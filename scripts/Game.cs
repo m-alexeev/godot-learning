@@ -1,5 +1,5 @@
 using Godot;
-namespace durak.scripts;
+namespace spacewar.scripts;
 
 public partial class Game : Node2D
 {

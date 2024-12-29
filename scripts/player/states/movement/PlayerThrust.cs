@@ -1,7 +1,6 @@
 using Godot;
-using System;
-using System.Linq;
-using durak.scripts.player;
+
+namespace spacewar.scripts.player.states.movement;
 
 public partial class PlayerThrust: State {
     [Export]
@@ -30,4 +29,3 @@ public partial class PlayerThrust: State {
         }
     }
 }
-

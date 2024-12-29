@@ -1,7 +1,6 @@
 using Godot;
-using System;
-using System.Linq;
-using durak.scripts.player;
+
+namespace spacewar.scripts.player.states.movement;
 
 public partial class PlayerIdle : State {
     [Export]
@@ -29,4 +28,3 @@ public partial class PlayerIdle : State {
         }
     }
 }
-

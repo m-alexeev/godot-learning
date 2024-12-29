@@ -1,6 +1,6 @@
 using Godot;
 
-namespace durak.scripts.player;
+namespace spacewar.scripts.player;
 
 public partial class Player : Node2D {
 

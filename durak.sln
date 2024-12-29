@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "durak", "durak.csproj", "{12831603-8CD4-4B1E-A022-FBBA7DBBF7E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "durak", "durak.csproj", "{6A5B6DCF-AC98-4048-A0C4-90A93F192560}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,11 +9,11 @@ Global
 	ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{12831603-8CD4-4B1E-A022-FBBA7DBBF7E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{12831603-8CD4-4B1E-A022-FBBA7DBBF7E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{12831603-8CD4-4B1E-A022-FBBA7DBBF7E2}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
-		{12831603-8CD4-4B1E-A022-FBBA7DBBF7E2}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
-		{12831603-8CD4-4B1E-A022-FBBA7DBBF7E2}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
-		{12831603-8CD4-4B1E-A022-FBBA7DBBF7E2}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{6A5B6DCF-AC98-4048-A0C4-90A93F192560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A5B6DCF-AC98-4048-A0C4-90A93F192560}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A5B6DCF-AC98-4048-A0C4-90A93F192560}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{6A5B6DCF-AC98-4048-A0C4-90A93F192560}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{6A5B6DCF-AC98-4048-A0C4-90A93F192560}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{6A5B6DCF-AC98-4048-A0C4-90A93F192560}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 	EndGlobalSection
 EndGlobal

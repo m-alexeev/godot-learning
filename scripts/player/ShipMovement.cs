@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-namespace  durak.scripts.player;
+namespace  spacewar.scripts.player;
 
 
 public partial class ShipMovement : Node2D {

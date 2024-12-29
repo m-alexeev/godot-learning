@@ -1,5 +1,5 @@
 using Godot;
-using durak.scripts.player;
+using spacewar.scripts.player;
 
 public partial class PlayerBoost : State {
     [Export]

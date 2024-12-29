@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dqtk42jfyw81y"]
 
-[ext_resource type="Script" path="res://scripts/projectiles/Cannon.cs" id="1_oy8nw"]
+[ext_resource type="Script" path="res://scripts/projectiles/BaseProjectile.cs" id="1_qaxic"]
 [ext_resource type="Texture2D" uid="uid://buhqwie6th4ky" path="res://assets/sprites/corvette/Charge_2.png" id="2_2nvqy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p8ds4"]
@@ -8,7 +8,7 @@ radius = 2.0
 height = 24.0
 
 [node name="Cannon" type="Area2D"]
-script = ExtResource("1_oy8nw")
+script = ExtResource("1_qaxic")
 InitialVelocity = 1200
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

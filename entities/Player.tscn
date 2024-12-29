@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dc2f3tgdp3m8k"]
+[gd_scene load_steps=20 format=3 uid="uid://dc2f3tgdp3m8k"]
 
 [ext_resource type="SpriteFrames" uid="uid://cahioug8lvmb0" path="res://assets/sprites/frames/CorvetteIdle.tres" id="1_3rerk"]
 [ext_resource type="Script" path="res://scripts/player/Player.cs" id="1_nwhh0"]
@@ -13,56 +13,15 @@
 [ext_resource type="Script" path="res://scripts/player/states/actions/AttackStateMachine.cs" id="11_dvvt8"]
 [ext_resource type="Script" path="res://scripts/player/states/actions/ActionIdle.cs" id="12_px624"]
 [ext_resource type="SpriteFrames" uid="uid://7t5dj7q8j37t" path="res://assets/sprites/frames/CorvetteLaserStart.tres" id="13_1s7ws"]
-[ext_resource type="Script" path="res://scripts/player/states/actions/ActionLaser.cs" id="13_50gka"]
+[ext_resource type="Script" path="res://scripts/player/states/actions/ActionProjectile.cs" id="13_2hvhy"]
 [ext_resource type="Script" path="res://scripts/player/WeaponsHandler.cs" id="14_4q3d4"]
 [ext_resource type="PackedScene" uid="uid://cp0ui3b1tma7b" path="res://entities/Laser.tscn" id="15_l3ujw"]
 [ext_resource type="SpriteFrames" uid="uid://bil8i2xn6ovr0" path="res://assets/sprites/frames/CorvetteCannon.tres" id="16_2f3hm"]
-[ext_resource type="Script" path="res://scripts/player/states/actions/ActionCannon.cs" id="16_pc20i"]
 [ext_resource type="PackedScene" uid="uid://dqtk42jfyw81y" path="res://entities/Cannon.tscn" id="17_fsenk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ad72f"]
 radius = 23.0
 height = 168.0
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_t7ndp"]
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_hv38f"]
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_m4hlg"]
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_k1m1e"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qn6jt"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_afsrr"]
-advance_mode = 2
-advance_condition = &"shooting"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n6j8t"]
-advance_mode = 2
-advance_condition = &"shooting"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_toa66"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"idle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cmvix"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"idle"
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_pmh1p"]
-states/ActionCannon/node = SubResource("AnimationNodeBlendSpace2D_hv38f")
-states/ActionCannon/position = Vector2(442, 235)
-states/ActionIdle/node = SubResource("AnimationNodeBlendSpace2D_m4hlg")
-states/ActionIdle/position = Vector2(287, 121)
-states/ActionLaser/node = SubResource("AnimationNodeBlendSpace2D_k1m1e")
-states/ActionLaser/position = Vector2(442, -6)
-states/Start/position = Vector2(124, 127)
-transitions = ["Start", "ActionIdle", SubResource("AnimationNodeStateMachineTransition_qn6jt"), "ActionIdle", "ActionLaser", SubResource("AnimationNodeStateMachineTransition_afsrr"), "ActionIdle", "ActionCannon", SubResource("AnimationNodeStateMachineTransition_n6j8t"), "ActionLaser", "ActionIdle", SubResource("AnimationNodeStateMachineTransition_toa66"), "ActionCannon", "ActionIdle", SubResource("AnimationNodeStateMachineTransition_cmvix")]
-graph_offset = Vector2(-47, -68)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_shipMovement", "_inputHandler", "_weaponsHandler")]
 script = ExtResource("1_nwhh0")
@@ -86,8 +45,9 @@ position = Vector2(3, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ad72f")
 
-[node name="MovementStateMachine" type="Node2D" parent="."]
+[node name="MovementStateMachine" type="Node2D" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("5_xnvl0")
+InitialState = NodePath("Idle")
 
 [node name="Idle" type="Node2D" parent="MovementStateMachine" node_paths=PackedStringArray("AnimatedSprite", "ThrustState", "BoostState")]
 script = ExtResource("6_cqj07")
@@ -119,23 +79,21 @@ script = ExtResource("12_px624")
 ActionLaser = NodePath("../ActionLaser")
 ActionCannon = NodePath("../ActionCannon")
 
-[node name="ActionLaser" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("IdleState", "Laser1Spawn", "Laser2Spawn")]
-script = ExtResource("13_50gka")
+[node name="ActionLaser" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("IdleState", "ProjectileSpawns")]
+script = ExtResource("13_2hvhy")
 IdleState = NodePath("../ActionIdle")
 AttackAnimation = ExtResource("13_1s7ws")
 AttackCooldown = 300
-LaserProjectile = ExtResource("15_l3ujw")
-Laser1Spawn = NodePath("../../WeaponsHandler/Laser1")
-Laser2Spawn = NodePath("../../WeaponsHandler/Laser2")
+Projectile = ExtResource("15_l3ujw")
+ProjectileSpawns = [NodePath("../../WeaponsHandler/Laser1"), NodePath("../../WeaponsHandler/Laser2")]
 
-[node name="ActionCannon" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("IdleState", "Cannon1Spawn", "Cannon2Spawn")]
-script = ExtResource("16_pc20i")
+[node name="ActionCannon" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("IdleState", "ProjectileSpawns")]
+script = ExtResource("13_2hvhy")
 IdleState = NodePath("../ActionIdle")
 AttackAnimation = ExtResource("16_2f3hm")
 AttackCooldown = 500
-CannonProjectile = ExtResource("17_fsenk")
-Cannon1Spawn = NodePath("../../WeaponsHandler/Cannon1")
-Cannon2Spawn = NodePath("../../WeaponsHandler/Cannon2")
+Projectile = ExtResource("17_fsenk")
+ProjectileSpawns = [NodePath("../../WeaponsHandler/Cannon1"), NodePath("../../WeaponsHandler/Cannon2")]
 
 [node name="WeaponsHandler" type="Node2D" parent="."]
 script = ExtResource("14_4q3d4")
@@ -151,17 +109,3 @@ position = Vector2(61, -6.5)
 
 [node name="Cannon2" type="Marker2D" parent="WeaponsHandler"]
 position = Vector2(61, 6.5)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_t7ndp")
-}
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeStateMachine_pmh1p")
-anim_player = NodePath("../AnimationPlayer")
-parameters/conditions/idle = false
-parameters/conditions/shooting = false
-parameters/ActionCannon/blend_position = Vector2(0, 0)
-parameters/ActionIdle/blend_position = Vector2(0, 0)
-parameters/ActionLaser/blend_position = Vector2(0, 0)

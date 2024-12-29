@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-namespace durak.scripts.player;
+namespace spacewar.scripts.player;
 public partial class InputHandler : Node2D {
 	[Signal]
 	public delegate void ThrustEventHandler(float input);
@@ -50,8 +50,11 @@ public partial class InputHandler : Node2D {
 		}
 		
 		// Actions
-		if (@event.IsAction("shoot")) {
-			EmitSignal(SignalName.Shoot, @event.IsActionPressed("shoot"));
+		if (@event.IsActionPressed("shoot")) {
+			EmitSignal(SignalName.Shoot, true);
+		}
+		if (@event.IsActionReleased("shoot")) {
+			EmitSignal(SignalName.Shoot, false);
 		}
 
 		if (@event.IsAction("swap")) {

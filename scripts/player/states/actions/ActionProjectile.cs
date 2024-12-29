@@ -1,21 +1,22 @@
 using Godot;
+using Godot.Collections;
+using spacewar.scripts.projectiles;
 
-namespace durak.scripts.player.states.actions;
+namespace spacewar.scripts.player.states.actions;
 
-public partial class ActionLaser: State {
+public partial class ActionProjectile: State {
 
     [Export] public State IdleState;
     [Export] public SpriteFrames AttackAnimation;
     
     [Export] public ulong AttackCooldown;
-    [Export] public PackedScene LaserProjectile; 
-    [Export] public Marker2D Laser1Spawn;
-    [Export] public Marker2D Laser2Spawn;
+    [Export] public PackedScene Projectile;
+    [Export] public Array<Marker2D> ProjectileSpawns;
     
     private AnimatedSprite2D _animatedSprite2D;
     private Node2D _parent;
     private Node2D _gameNode;
-    private ulong _lastAttack = 0;
+    private ulong _lastAttack;
     
     public override void Enter() {
         _parent = (Node2D)GetParent().GetParent();
@@ -37,20 +38,17 @@ public partial class ActionLaser: State {
         _lastAttack = Time.GetTicksMsec();
     }
 
-    private void InstantiateLaser(Marker2D spawnPoint) {
-        // Get Parent forward 
-        Vector2 forwardDirection = new Vector2(1, 0).Rotated(_parent.Rotation);
-       // Create Laser
-       Laser laser = (Laser)LaserProjectile.Instantiate();
-       laser.Position = spawnPoint.GlobalPosition;
-       laser.Rotation = _parent.Rotation;
-       laser.SetDirection(forwardDirection);
-       _gameNode.AddChild(laser);
+    private void InstantiateProjectile(Marker2D spawnPoint) {
+       BaseProjectile projectile = (BaseProjectile)Projectile.Instantiate();
+       projectile.Position = spawnPoint.GlobalPosition;
+       projectile.Rotation = _parent.Rotation;
+       _gameNode.AddChild(projectile);
     }
     
     private void LaunchProjectile() {
-        InstantiateLaser(Laser1Spawn);
-        InstantiateLaser(Laser2Spawn);
+        foreach (var spawn in ProjectileSpawns) {
+            InstantiateProjectile(spawn);
+        }
     }
 
     private void OnAnimationComplete() {

@@ -1,7 +1,7 @@
-using durak.scripts.player.enums;
+using spacewar.scripts.player.enums;
 using Godot;
 
-namespace durak.scripts.player.states.actions;
+namespace spacewar.scripts.player.states.actions;
 
 public partial class ActionIdle : State {
     [Export] public State ActionLaser;

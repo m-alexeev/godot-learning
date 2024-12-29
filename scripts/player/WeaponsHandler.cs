@@ -1,16 +1,18 @@
-using durak.scripts.player.enums;
+using System.Collections;
+using System.Collections.Generic;
+using spacewar.scripts.player.enums;
 using Godot;
+using Godot.Collections;
+using spacewar.scripts.player.states;
 
-namespace durak.scripts.player;
+namespace spacewar.scripts.player;
 
 public partial class WeaponsHandler : Node2D {
 
     [Export] public Weapon InitialWeapon;
     private bool _shooting;
     private Weapon _currentWeapon;
-
-    public bool IsShooting => _shooting;
-    public Weapon CurrentWeapon => _currentWeapon;
+    
     
     public override void _Ready() {
         _currentWeapon = InitialWeapon;
@@ -34,4 +36,7 @@ public partial class WeaponsHandler : Node2D {
     public void OnShoot(bool shoot) {
         _shooting = shoot;
     }
+    public bool IsShooting => _shooting;
+    public Weapon CurrentWeapon => _currentWeapon;
+    
 }

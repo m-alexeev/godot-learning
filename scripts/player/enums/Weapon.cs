@@ -1,4 +1,4 @@
-﻿namespace durak.scripts.player.enums;
+﻿namespace spacewar.scripts.player.enums;
 
 public enum Weapon {
    LASER,
