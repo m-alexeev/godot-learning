@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://6toll43mrui4"]
+
+[ext_resource type="Texture2D" uid="uid://0sy4gk6b4451" path="res://assets/sprites/corvette/Boost.png" id="1_c7dp0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnlpf"]
+atlas = ExtResource("1_c7dp0")
+region = Rect2(0, 0, 190, 192)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qnlpf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
