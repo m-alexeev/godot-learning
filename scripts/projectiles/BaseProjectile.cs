@@ -2,7 +2,7 @@ using Godot;
 
 namespace spacewar.scripts.projectiles;
 
-public partial class BaseProjectile : Node2D {
+public partial class BaseProjectile : Area2D{
     [Export] public int InitialVelocity = 500;
     [Export] public Vector2 InitialDirection = new (1,0);
     [Export] public double Lifetime = 5;

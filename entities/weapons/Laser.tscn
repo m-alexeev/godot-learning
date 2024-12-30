@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://cp0ui3b1tma7b"]
+
+[ext_resource type="Script" path="res://scripts/projectiles/BaseProjectile.cs" id="1_r6ruu"]
+[ext_resource type="Texture2D" uid="uid://1qwa4fibu24b" path="res://assets/sprites/corvette/Charge_1.png" id="2_ybx46"]
+[ext_resource type="Script" path="res://scripts/components/DamageComponent.cs" id="3_0ae7x"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p8ds4"]
+radius = 2.0
+height = 46.0
+
+[node name="Laser" type="Area2D"]
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("1_r6ruu")
+InitialVelocity = 3500
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(23, 0)
+texture = ExtResource("2_ybx46")
+offset = Vector2(0, -0.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(23, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_p8ds4")
+
+[node name="Lifetime" type="Timer" parent="."]
+
+[node name="DamageComponent" type="Node2D" parent="."]
+script = ExtResource("3_0ae7x")
+Damage = 10.0
+DamageMultiplier = 1.0
