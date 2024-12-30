@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://b2kkkek1thiwr"]
+[gd_scene load_steps=39 format=3 uid="uid://b2kkkek1thiwr"]
 
 [ext_resource type="Script" path="res://scripts/enemies/Enemy.cs" id="1_2onxr"]
 [ext_resource type="Script" path="res://scripts/player/states/StateMachine.cs" id="1_d16it"]
@@ -8,6 +8,11 @@
 [ext_resource type="Script" path="res://scripts/components/HealthComponent.cs" id="4_8pk8c"]
 [ext_resource type="Script" path="res://scripts/components/HurtboxComponent.cs" id="4_kqemd"]
 [ext_resource type="Texture2D" uid="uid://dbg5j0grxciic" path="res://assets/sprites/bomber/Move.png" id="4_mr1fq"]
+[ext_resource type="PackedScene" uid="uid://dqxssvdki1x7a" path="res://scenes/components/ShipMovement.tscn" id="6_aw34x"]
+[ext_resource type="Script" path="res://scripts/enemies/states/IdleState.cs" id="9_xs2g8"]
+[ext_resource type="Script" path="res://scripts/enemies/states/SearchingState.cs" id="10_sst4m"]
+[ext_resource type="Script" path="res://scripts/enemies/states/TrackingState.cs" id="12_glkiq"]
+[ext_resource type="Script" path="res://scripts/enemies/states/TargetingState.cs" id="13_2np5y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_debkr"]
 atlas = ExtResource("2_40gco")
@@ -197,14 +202,14 @@ animations = [{
 radius = 29.0
 height = 106.0
 
-[node name="Enemy" type="Node2D" node_paths=PackedStringArray("_hurtboxComponent", "_animatedSprite2d")]
+[node name="Enemy" type="Node2D"]
 script = ExtResource("1_2onxr")
-_hurtboxComponent = NodePath("HurtboxComponent")
-_animatedSprite2d = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_k61br")
 animation = &"damage"
+
+[node name="ShipMovement" parent="." instance=ExtResource("6_aw34x")]
 
 [node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent")]
 collision_layer = 2
@@ -222,5 +227,29 @@ script = ExtResource("4_8pk8c")
 InitialHealth = 20.0
 MaxHealth = 20.0
 
-[node name="StateMachine" type="Node2D" parent="."]
+[node name="MovementStateMachine" type="Node2D" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("1_d16it")
+InitialState = NodePath("Idle")
+
+[node name="Searching" type="Node2D" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState", "TrackingState")]
+script = ExtResource("10_sst4m")
+IdleState = NodePath("../Idle")
+TrackingState = NodePath("../Tracking")
+
+[node name="Idle" type="Node2D" parent="MovementStateMachine" node_paths=PackedStringArray("SearchingState", "TrackingState")]
+script = ExtResource("9_xs2g8")
+SearchingState = NodePath("../Searching")
+TrackingState = NodePath("../Tracking")
+SearchDelay = 10.0
+
+[node name="Timer" type="Timer" parent="MovementStateMachine/Idle"]
+
+[node name="Tracking" type="Node2D" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState", "SearchingState", "TargetingState")]
+script = ExtResource("12_glkiq")
+IdleState = NodePath("../Idle")
+SearchingState = NodePath("../Searching")
+TargetingState = NodePath("../Targetting")
+TrackingRange = 300.0
+
+[node name="Targetting" type="Node2D" parent="MovementStateMachine"]
+script = ExtResource("13_2np5y")

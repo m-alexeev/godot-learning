@@ -25,6 +25,10 @@ window/stretch/mode="viewport"
 
 project/assembly_name="spacewar"
 
+[global_group]
+
+Player=""
+
 [input]
 
 left={
