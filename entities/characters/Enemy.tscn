@@ -212,6 +212,8 @@ animation = &"damage"
 [node name="ShipMovement" parent="." instance=ExtResource("6_aw34x")]
 EnginePower = 3000
 Speed = 400
+BoostSpeed = 600
+VelocityDampening = 500
 
 [node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent")]
 collision_layer = 2

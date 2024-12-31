@@ -26,9 +26,10 @@ public partial class SearchingState: State {
 
     public override void PhysicsUpdate(double delta) {
         if (_enemy.Position.DistanceTo(_player.Position) <= TrackingState.TrackingRange) {
+            _shipMovement.ApplyThrust(0);
             EmitSignal(State.SignalName.Transition, this, TrackingState);
         }
-        if (_enemy.Position.DistanceTo(_nextLocation) < Tolerance) {
+        else if (_enemy.Position.DistanceTo(_nextLocation) < Tolerance) {
             EmitSignal(State.SignalName.Transition, this, IdleState);
         }
         else {

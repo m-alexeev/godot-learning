@@ -24,7 +24,6 @@ public partial class ShipMovement : Node2D {
 	public bool ApplyingThrust => Mathf.Abs(_thrust) > 0;
 	public bool IsBoosting => _currentMaxSpeed == BoostSpeed;
 	
-	
 	// Rotation
 	private Vector2 _rotation;
 		
