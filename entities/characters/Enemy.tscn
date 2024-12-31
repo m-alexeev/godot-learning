@@ -210,6 +210,8 @@ sprite_frames = SubResource("SpriteFrames_k61br")
 animation = &"damage"
 
 [node name="ShipMovement" parent="." instance=ExtResource("6_aw34x")]
+EnginePower = 3000
+Speed = 400
 
 [node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent")]
 collision_layer = 2
@@ -235,12 +237,13 @@ InitialState = NodePath("Idle")
 script = ExtResource("10_sst4m")
 IdleState = NodePath("../Idle")
 TrackingState = NodePath("../Tracking")
+WanderRange = 600.0
 
 [node name="Idle" type="Node2D" parent="MovementStateMachine" node_paths=PackedStringArray("SearchingState", "TrackingState")]
 script = ExtResource("9_xs2g8")
 SearchingState = NodePath("../Searching")
 TrackingState = NodePath("../Tracking")
-SearchDelay = 10.0
+SearchDelay = 1.0
 
 [node name="Timer" type="Timer" parent="MovementStateMachine/Idle"]
 

@@ -64,16 +64,14 @@ public partial class ShipMovement : Node2D {
 		_parent.Rotation = (float)Mathf.LerpAngle(currentRotation, targetRotation, RotateSpeed* delta);
 	}
 
-	// Refactor, this should be only called once not once per frame 
-	// update of speed should happen in Process
-	public void ApplyThrust(float direction) {
+	public void ApplyThrust(float thrustDirection) {
 		if (!IsBoosting) {
-			_thrust = direction;
+			_thrust = thrustDirection;
 		}
 	}
 
-	public void RotateTowards(Vector2 mousePosition) {
-		_rotation = (mousePosition ).Normalized();
+	public void RotateTowards(Vector2 targetPostion) {
+		_rotation = (targetPostion).Normalized();
 	}
 
 	public void ApplyBoost(bool isBoosting) {
