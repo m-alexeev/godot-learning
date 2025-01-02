@@ -6,8 +6,6 @@ public partial class PlayerThrust: State {
     [Export]
     public AnimatedSprite2D AnimatedSprite;
 
-    [Export] public SpriteFrames ThrustSprite;
-
     [Export] public State IdleState;
     [Export] public State BoostState;
     
@@ -16,7 +14,8 @@ public partial class PlayerThrust: State {
     public override void Enter() {
         Node player = GetParent().GetParent();
         _movement = player.GetNode<ShipMovement>("ShipMovement");
-        AnimatedSprite.SetSpriteFrames(ThrustSprite);
+        AnimatedSprite.SetAnimation("move");
+        AnimatedSprite.Play();
     }
 
     public override void PhysicsUpdate(double delta) {

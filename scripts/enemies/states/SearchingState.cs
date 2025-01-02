@@ -33,7 +33,6 @@ public partial class SearchingState: State {
             EmitSignal(State.SignalName.Transition, this, IdleState);
         }
         else {
-            // Look at _nextLocation and move towards it 
            _shipMovement.RotateTowards(_nextLocation - _enemy.Position); 
            _shipMovement.ApplyThrust(1);
         }

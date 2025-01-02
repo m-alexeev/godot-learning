@@ -214,6 +214,7 @@ EnginePower = 3000
 Speed = 400
 BoostSpeed = 600
 VelocityDampening = 500
+RotateSpeed = 2.0
 
 [node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent")]
 collision_layer = 2

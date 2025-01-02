@@ -6,7 +6,6 @@ public partial class PlayerIdle : State {
     [Export]
     public AnimatedSprite2D AnimatedSprite;
 
-    [Export] public SpriteFrames IdleSprite;
     [Export] public State ThrustState;
     [Export] public State BoostState;
 
@@ -15,7 +14,7 @@ public partial class PlayerIdle : State {
     public override void Enter() {
         Node player = GetParent().GetParent();
         _movement = player.GetNode<ShipMovement>("ShipMovement");
-        AnimatedSprite.SetSpriteFrames(IdleSprite);
+        AnimatedSprite.SetAnimation("idle");
     }
 
     public override void PhysicsUpdate(double delta) {

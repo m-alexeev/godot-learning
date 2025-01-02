@@ -1,27 +1,61 @@
-[gd_scene load_steps=20 format=3 uid="uid://dc2f3tgdp3m8k"]
+[gd_scene load_steps=23 format=3 uid="uid://dc2f3tgdp3m8k"]
 
-[ext_resource type="SpriteFrames" uid="uid://cahioug8lvmb0" path="res://assets/frames/CorvetteIdle.tres" id="1_3rerk"]
+[ext_resource type="SpriteFrames" uid="uid://cahioug8lvmb0" path="res://assets/frames/Corvette.tres" id="1_3rerk"]
 [ext_resource type="Script" path="res://scripts/player/Player.cs" id="1_nwhh0"]
 [ext_resource type="PackedScene" uid="uid://bk3u3cj4orlqs" path="res://scenes/components/InputHandler.tscn" id="2_ehiw5"]
 [ext_resource type="PackedScene" uid="uid://dqxssvdki1x7a" path="res://scenes/components/ShipMovement.tscn" id="3_8hs21"]
 [ext_resource type="Script" path="res://scripts/player/states/StateMachine.cs" id="5_xnvl0"]
 [ext_resource type="Script" path="res://scripts/player/states/movement/PlayerIdle.cs" id="6_cqj07"]
-[ext_resource type="SpriteFrames" uid="uid://bc2h8l16mxrbd" path="res://assets/frames/CorvetteThrust.tres" id="7_74273"]
 [ext_resource type="Script" path="res://scripts/player/states/movement/PlayerThrust.cs" id="7_o47ms"]
 [ext_resource type="Script" path="res://scripts/player/states/movement/PlayerBoost.cs" id="9_ohk7t"]
-[ext_resource type="SpriteFrames" uid="uid://6toll43mrui4" path="res://assets/frames/CorvetteBoost.tres" id="10_cohdi"]
 [ext_resource type="Script" path="res://scripts/player/states/actions/AttackStateMachine.cs" id="11_dvvt8"]
 [ext_resource type="Script" path="res://scripts/player/states/actions/ActionIdle.cs" id="12_px624"]
 [ext_resource type="SpriteFrames" uid="uid://7t5dj7q8j37t" path="res://assets/frames/CorvetteLaserStart.tres" id="13_1s7ws"]
 [ext_resource type="Script" path="res://scripts/player/states/actions/ActionProjectile.cs" id="13_2hvhy"]
+[ext_resource type="Texture2D" uid="uid://mn4mcarv17le" path="res://assets/sprites/corvette/Attack_2.png" id="14_1xmpd"]
 [ext_resource type="Script" path="res://scripts/player/WeaponsHandler.cs" id="14_4q3d4"]
 [ext_resource type="PackedScene" uid="uid://cp0ui3b1tma7b" path="res://entities/weapons/Laser.tscn" id="15_l3ujw"]
-[ext_resource type="SpriteFrames" uid="uid://bil8i2xn6ovr0" path="res://assets/frames/CorvetteCannon.tres" id="16_2f3hm"]
 [ext_resource type="PackedScene" uid="uid://dqtk42jfyw81y" path="res://entities/weapons/Cannon.tscn" id="17_fsenk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ad72f"]
-radius = 23.0
+radius = 25.0
 height = 168.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dj1vj"]
+atlas = ExtResource("14_1xmpd")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pi0mh"]
+atlas = ExtResource("14_1xmpd")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w6yn7"]
+atlas = ExtResource("14_1xmpd")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lbami"]
+atlas = ExtResource("14_1xmpd")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j882d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dj1vj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pi0mh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w6yn7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lbami")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_shipMovement", "_inputHandler", "_weaponsHandler") groups=["Player"]]
 script = ExtResource("1_nwhh0")
@@ -39,9 +73,10 @@ VelocityDampening = 350
 
 [node name="ShipSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("1_3rerk")
+animation = &"thrust"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, 0)
+position = Vector2(8, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ad72f")
 
@@ -52,21 +87,18 @@ InitialState = NodePath("Idle")
 [node name="Idle" type="Node2D" parent="MovementStateMachine" node_paths=PackedStringArray("AnimatedSprite", "ThrustState", "BoostState")]
 script = ExtResource("6_cqj07")
 AnimatedSprite = NodePath("../../ShipSprite")
-IdleSprite = ExtResource("1_3rerk")
 ThrustState = NodePath("../Thrust")
 BoostState = NodePath("../Boost")
 
 [node name="Thrust" type="Node2D" parent="MovementStateMachine" node_paths=PackedStringArray("AnimatedSprite", "IdleState", "BoostState")]
 script = ExtResource("7_o47ms")
 AnimatedSprite = NodePath("../../ShipSprite")
-ThrustSprite = ExtResource("7_74273")
 IdleState = NodePath("../Idle")
 BoostState = NodePath("../Boost")
 
 [node name="Boost" type="Node2D" parent="MovementStateMachine" node_paths=PackedStringArray("AnimatedSprite", "ThrustState", "IdleState")]
 script = ExtResource("9_ohk7t")
 AnimatedSprite = NodePath("../../ShipSprite")
-BoostSprite = ExtResource("10_cohdi")
 ThrustState = NodePath("../Thrust")
 IdleState = NodePath("../Idle")
 
@@ -90,7 +122,7 @@ ProjectileSpawns = [NodePath("../../WeaponsHandler/Laser1"), NodePath("../../Wea
 [node name="ActionCannon" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("IdleState", "ProjectileSpawns")]
 script = ExtResource("13_2hvhy")
 IdleState = NodePath("../ActionIdle")
-AttackAnimation = ExtResource("16_2f3hm")
+AttackAnimation = SubResource("SpriteFrames_j882d")
 AttackCooldown = 500
 Projectile = ExtResource("17_fsenk")
 ProjectileSpawns = [NodePath("../../WeaponsHandler/Cannon1"), NodePath("../../WeaponsHandler/Cannon2")]
