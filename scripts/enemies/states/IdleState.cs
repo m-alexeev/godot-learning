@@ -7,6 +7,7 @@ namespace spacewar.scripts.enemies.states;
 public partial class IdleState : State {
     [Export] public State SearchingState;
     [Export] public TrackingState TrackingState;
+    [Export] public AnimatedSprite2D AnimatedSprite2D;
     
 
     [Export] public double SearchDelay;
@@ -15,9 +16,9 @@ public partial class IdleState : State {
     private Player _player;
     private Enemy _enemy;
     public override void Enter() {
-        GD.Print("Idling");
         _enemy = GetParent().GetParent<Enemy>();
         _player = (Player)GetTree().GetFirstNodeInGroup("Player");
+        AnimatedSprite2D.SetAnimation("idle");
         
         // Setup timer
         _timer = GetNode<Timer>("Timer");
@@ -29,7 +30,6 @@ public partial class IdleState : State {
     public override void PhysicsUpdate(double delta) {
         // Check if player in range again 
         if (_enemy.Position.DistanceTo(_player.Position) <= TrackingState.TrackingRange) {
-            GD.Print("stop idling");
             _timer.Stop();
             EmitSignal(State.SignalName.Transition, this, TrackingState);
         }

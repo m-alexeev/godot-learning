@@ -73,7 +73,7 @@ VelocityDampening = 350
 
 [node name="ShipSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("1_3rerk")
-animation = &"thrust"
+animation = &"boost"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(8, 0)

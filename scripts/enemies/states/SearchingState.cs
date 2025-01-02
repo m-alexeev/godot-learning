@@ -8,6 +8,7 @@ public partial class SearchingState: State {
     [Export] public State IdleState;
     [Export] public TrackingState TrackingState;
     [Export] public float WanderRange;
+    [Export] public AnimatedSprite2D AnimatedSprite2D;
     
     private Player _player;
     private Enemy _enemy;
@@ -17,7 +18,10 @@ public partial class SearchingState: State {
     
     private ShipMovement _shipMovement;
     public override void Enter() {
+        AnimatedSprite2D.SetAnimation("move");
+        AnimatedSprite2D.Play();
         GD.Print("Searching");
+        
         _player = (Player)GetTree().GetFirstNodeInGroup("Player");
         _enemy = GetParent().GetParent<Enemy>();
         _shipMovement = _enemy.GetNode<ShipMovement>("ShipMovement");
