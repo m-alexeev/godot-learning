@@ -80,6 +80,8 @@ swap={
 2d_physics/layer_3="Environment"
 2d_physics/layer_5="ProjectilesEnemy"
 2d_physics/layer_6="ProjectilesPlayer"
+2d_physics/layer_7="TargetingPlayer"
+2d_physics/layer_8="TargetingEnemy"
 
 [rendering]
 

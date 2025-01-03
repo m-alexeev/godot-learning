@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dc2f3tgdp3m8k"]
+[gd_scene load_steps=29 format=3 uid="uid://dc2f3tgdp3m8k"]
 
 [ext_resource type="SpriteFrames" uid="uid://cahioug8lvmb0" path="res://assets/frames/Corvette.tres" id="1_3rerk"]
 [ext_resource type="Script" path="res://scripts/player/Player.cs" id="1_nwhh0"]
@@ -62,7 +62,11 @@ animations = [{
 "speed": 20.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_7kies"]
+radius = 608.118
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_shipMovement", "_inputHandler", "_weaponsHandler") groups=["Player"]]
+collision_mask = 2
 script = ExtResource("1_nwhh0")
 _shipMovement = NodePath("ShipMovement")
 _inputHandler = NodePath("InputHandler")
@@ -114,10 +118,11 @@ IdleState = NodePath("../Idle")
 script = ExtResource("11_dvvt8")
 InitialState = NodePath("ActionIdle")
 
-[node name="ActionIdle" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("ActionLaser", "ActionCannon")]
+[node name="ActionIdle" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("ActionLaser", "ActionCannon", "ActionTracking")]
 script = ExtResource("12_px624")
 ActionLaser = NodePath("../ActionLaser")
 ActionCannon = NodePath("../ActionCannon")
+ActionTracking = NodePath("../ActionTracking")
 
 [node name="ActionLaser" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("IdleState", "ProjectileSpawns")]
 script = ExtResource("13_2hvhy")
@@ -138,6 +143,14 @@ ProjectileSpawns = [NodePath("../../WeaponsHandler/Cannon1"), NodePath("../../We
 
 [node name="ActionTracking" type="Node2D" parent="ActionStateMachine"]
 script = ExtResource("18_pii76")
+
+[node name="LockZone" type="Area2D" parent="ActionStateMachine/ActionTracking"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActionStateMachine/ActionTracking/LockZone"]
+shape = SubResource("CircleShape2D_7kies")
+debug_color = Color(0.941176, 0.654902, 0.654902, 0.105882)
 
 [node name="ActionRocket" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("IdleState", "TrackingState", "RocketSpawns")]
 script = ExtResource("19_y34nj")

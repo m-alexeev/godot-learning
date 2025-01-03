@@ -23,6 +23,9 @@ public partial class WeaponsHandler : Node2D {
             _currentWeapon = Weapon.CANNON;
         }
         else if (_currentWeapon == Weapon.CANNON) {
+            _currentWeapon = Weapon.ROCKET;
+        }
+        else if (_currentWeapon == Weapon.ROCKET) {
             _currentWeapon = Weapon.LASER;
         }
     }

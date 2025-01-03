@@ -6,6 +6,7 @@ namespace spacewar.scripts.player.states.actions;
 public partial class ActionIdle : State {
     [Export] public State ActionLaser;
     [Export] public State ActionCannon;
+    [Export] public State ActionTracking;
 
     private WeaponsHandler _weaponsHandler;
     
@@ -15,7 +16,7 @@ public partial class ActionIdle : State {
     }
     
     
-    public override void PhysicsUpdate(double delta) {
+    public override void Update(double delta) {
         // Change to different action states
         if (_weaponsHandler.IsShooting) {
             if (_weaponsHandler.CurrentWeapon == Weapon.LASER) {
@@ -23,7 +24,10 @@ public partial class ActionIdle : State {
             } 
             if (_weaponsHandler.CurrentWeapon == Weapon.CANNON) {
                 EmitSignal(State.SignalName.Transition, this, ActionCannon);
-            } 
+            }
         } 
+        if (_weaponsHandler.CurrentWeapon == Weapon.ROCKET) {
+            EmitSignal(State.SignalName.Transition, this, ActionTracking);
+        }
     }
 }
