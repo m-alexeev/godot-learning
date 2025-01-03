@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dc2f3tgdp3m8k"]
+[gd_scene load_steps=28 format=3 uid="uid://dc2f3tgdp3m8k"]
 
 [ext_resource type="SpriteFrames" uid="uid://cahioug8lvmb0" path="res://assets/frames/Corvette.tres" id="1_3rerk"]
 [ext_resource type="Script" path="res://scripts/player/Player.cs" id="1_nwhh0"]
@@ -19,6 +19,8 @@
 [ext_resource type="AudioStream" uid="uid://btab6upnx6ckw" path="res://assets/sounds/laserShoot (1).wav" id="15_vgcds"]
 [ext_resource type="Script" path="res://scripts/ui/HealthBar.cs" id="17_acbfh"]
 [ext_resource type="PackedScene" uid="uid://dqtk42jfyw81y" path="res://entities/weapons/Cannon.tscn" id="17_fsenk"]
+[ext_resource type="Script" path="res://scripts/player/states/actions/ActionTracking.cs" id="18_pii76"]
+[ext_resource type="Script" path="res://scripts/player/states/actions/ActionRocket.cs" id="19_y34nj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ad72f"]
 radius = 25.0
@@ -76,7 +78,7 @@ VelocityDampening = 350
 
 [node name="ShipSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("1_3rerk")
-animation = &"boost"
+animation = &"move"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(8, 0)
@@ -134,6 +136,15 @@ AttackCooldown = 500
 Projectile = ExtResource("17_fsenk")
 ProjectileSpawns = [NodePath("../../WeaponsHandler/Cannon1"), NodePath("../../WeaponsHandler/Cannon2")]
 
+[node name="ActionTracking" type="Node2D" parent="ActionStateMachine"]
+script = ExtResource("18_pii76")
+
+[node name="ActionRocket" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("IdleState", "TrackingState", "RocketSpawns")]
+script = ExtResource("19_y34nj")
+IdleState = NodePath("../ActionIdle")
+TrackingState = NodePath("../ActionTracking")
+RocketSpawns = []
+
 [node name="WeaponsHandler" type="Node2D" parent="."]
 script = ExtResource("14_4q3d4")
 
@@ -148,6 +159,15 @@ position = Vector2(61, -6.5)
 
 [node name="Cannon2" type="Marker2D" parent="WeaponsHandler"]
 position = Vector2(61, 6.5)
+
+[node name="Rocket1" type="Marker2D" parent="WeaponsHandler"]
+position = Vector2(79, -32)
+
+[node name="Rocket2" type="Marker2D" parent="WeaponsHandler"]
+position = Vector2(83, -1)
+
+[node name="Rocket3" type="Marker2D" parent="WeaponsHandler"]
+position = Vector2(77, 34)
 
 [node name="HealthBar" type="ProgressBar" parent="." node_paths=PackedStringArray("HealthComponent")]
 anchors_preset = 8

@@ -1,0 +1,60 @@
+[gd_resource type="SpriteFrames" load_steps=9 format=3 uid="uid://c54p5svuh0v30"]
+
+[ext_resource type="Texture2D" uid="uid://cfm8523fhek10" path="res://assets/sprites/corvette/Rockets.png" id="1_wphda"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8a3ng"]
+atlas = ExtResource("1_wphda")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xtqbu"]
+atlas = ExtResource("1_wphda")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vlklw"]
+atlas = ExtResource("1_wphda")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6fll"]
+atlas = ExtResource("1_wphda")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32wvd"]
+atlas = ExtResource("1_wphda")
+region = Rect2(768, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5sxg"]
+atlas = ExtResource("1_wphda")
+region = Rect2(960, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3ucb"]
+atlas = ExtResource("1_wphda")
+region = Rect2(1152, 0, 192, 192)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8a3ng")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xtqbu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vlklw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6fll")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_32wvd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f5sxg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3ucb")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
