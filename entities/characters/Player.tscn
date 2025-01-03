@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dc2f3tgdp3m8k"]
+[gd_scene load_steps=26 format=3 uid="uid://dc2f3tgdp3m8k"]
 
 [ext_resource type="SpriteFrames" uid="uid://cahioug8lvmb0" path="res://assets/frames/Corvette.tres" id="1_3rerk"]
 [ext_resource type="Script" path="res://scripts/player/Player.cs" id="1_nwhh0"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://mn4mcarv17le" path="res://assets/sprites/corvette/Attack_2.png" id="14_1xmpd"]
 [ext_resource type="Script" path="res://scripts/player/WeaponsHandler.cs" id="14_4q3d4"]
 [ext_resource type="PackedScene" uid="uid://cp0ui3b1tma7b" path="res://entities/weapons/Laser.tscn" id="15_l3ujw"]
+[ext_resource type="AudioStream" uid="uid://btab6upnx6ckw" path="res://assets/sounds/laserShoot (1).wav" id="15_vgcds"]
 [ext_resource type="Script" path="res://scripts/ui/HealthBar.cs" id="17_acbfh"]
 [ext_resource type="PackedScene" uid="uid://dqtk42jfyw81y" path="res://entities/weapons/Cannon.tscn" id="17_fsenk"]
 
@@ -123,6 +124,7 @@ AttackAnimation = ExtResource("13_1s7ws")
 AttackCooldown = 300
 Projectile = ExtResource("15_l3ujw")
 ProjectileSpawns = [NodePath("../../WeaponsHandler/Laser1"), NodePath("../../WeaponsHandler/Laser2")]
+ProjectileSfx = ExtResource("15_vgcds")
 
 [node name="ActionCannon" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("IdleState", "ProjectileSpawns")]
 script = ExtResource("13_2hvhy")

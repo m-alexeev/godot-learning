@@ -12,8 +12,10 @@ public partial class ActionProjectile: State {
     [Export] public ulong AttackCooldown;
     [Export] public PackedScene Projectile;
     [Export] public Array<Marker2D> ProjectileSpawns;
+    [Export] public AudioStream ProjectileSfx; 
     
     private AnimatedSprite2D _animatedSprite2D;
+    private AudioStreamPlayer _audioStreamPlayer;
     private Node2D _parent;
     private Node2D _gameNode;
     private ulong _lastAttack;
@@ -23,6 +25,11 @@ public partial class ActionProjectile: State {
         _gameNode= (Node2D)GetTree().GetRoot().GetNode("Game"); 
         _animatedSprite2D = new AnimatedSprite2D();
         _animatedSprite2D.AnimationFinished += OnAnimationComplete;
+        if (_audioStreamPlayer is null) {
+            _audioStreamPlayer = new();
+            AddChild(_audioStreamPlayer);
+        }
+        _audioStreamPlayer.SetStream(ProjectileSfx);
     }
     
     public override void PhysicsUpdate(double delta) {
@@ -36,6 +43,7 @@ public partial class ActionProjectile: State {
         _animatedSprite2D.SetSpriteFrames(AttackAnimation);
         _animatedSprite2D.Play();
         _lastAttack = Time.GetTicksMsec();
+        _audioStreamPlayer.Play();
     }
 
     private void InstantiateProjectile(Marker2D spawnPoint) {
@@ -54,6 +62,7 @@ public partial class ActionProjectile: State {
     private void OnAnimationComplete() {
         LaunchProjectile();
         _animatedSprite2D.QueueFree();
+        
         // Go back to idle state
         EmitSignal(State.SignalName.Transition, this, IdleState);
     }
