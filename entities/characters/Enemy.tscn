@@ -1,14 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://b2kkkek1thiwr"]
+[gd_scene load_steps=14 format=3 uid="uid://b2kkkek1thiwr"]
 
 [ext_resource type="Script" path="res://scripts/enemies/Enemy.cs" id="1_2onxr"]
 [ext_resource type="Script" path="res://scripts/player/states/StateMachine.cs" id="1_d16it"]
 [ext_resource type="SpriteFrames" uid="uid://cvxe4st27vl0m" path="res://assets/frames/Bomber.tres" id="2_v578v"]
-[ext_resource type="Script" path="res://scripts/components/HealthComponent.cs" id="4_8pk8c"]
 [ext_resource type="Script" path="res://scripts/components/HurtboxComponent.cs" id="4_kqemd"]
+[ext_resource type="PackedScene" uid="uid://ndgc5vinix6g" path="res://scenes/components/HealthComponent.tscn" id="5_q50br"]
 [ext_resource type="PackedScene" uid="uid://dqxssvdki1x7a" path="res://scenes/components/ShipMovement.tscn" id="6_aw34x"]
 [ext_resource type="Script" path="res://scripts/enemies/states/IdleState.cs" id="9_xs2g8"]
 [ext_resource type="Script" path="res://scripts/enemies/states/SearchingState.cs" id="10_sst4m"]
 [ext_resource type="Script" path="res://scripts/ui/HealthBar.cs" id="11_lgq4k"]
+[ext_resource type="Script" path="res://scripts/player/states/actions/AttackStateMachine.cs" id="12_0aoqn"]
 [ext_resource type="Script" path="res://scripts/enemies/states/TrackingState.cs" id="12_glkiq"]
 [ext_resource type="Script" path="res://scripts/enemies/states/TargetingState.cs" id="13_2np5y"]
 
@@ -41,10 +42,7 @@ position = Vector2(-5, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_r4wlm")
 
-[node name="HealthComponent" type="Node2D" parent="."]
-script = ExtResource("4_8pk8c")
-InitialHealth = 20.0
-MaxHealth = 20.0
+[node name="HealthComponent" parent="." instance=ExtResource("5_q50br")]
 
 [node name="MovementStateMachine" type="Node2D" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("1_d16it")
@@ -80,6 +78,16 @@ TrackingState = NodePath("../Tracking")
 TargetingRange = 550.0
 AnimatedSprite2D = NodePath("../../AnimatedSprite2D")
 
+[node name="HealthStateMachine" type="Node2D" parent="."]
+script = ExtResource("12_0aoqn")
+
+[node name="Idle" type="Node2D" parent="HealthStateMachine"]
+script = ExtResource("9_xs2g8")
+
+[node name="Hit" type="Node2D" parent="HealthStateMachine"]
+
+[node name="Dying" type="Node2D" parent="HealthStateMachine"]
+
 [node name="HealthBar" type="ProgressBar" parent="." node_paths=PackedStringArray("HealthComponent")]
 anchors_preset = 8
 anchor_left = 0.5
@@ -87,14 +95,15 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -46.0
-offset_top = -2.0
+offset_top = -39.0
 offset_right = 46.0
-offset_bottom = 2.0
+offset_bottom = -35.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 value = 100.0
+rounded = true
 show_percentage = false
 script = ExtResource("11_lgq4k")
 HealthComponent = NodePath("../HealthComponent")

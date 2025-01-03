@@ -3,7 +3,6 @@ using Godot;
 namespace spacewar.scripts.components;
 
 public partial class HealthComponent : Node {
-    [Export] public float InitialHealth;
     [Export] public float MaxHealth;
     private float _currentHealth;
 
@@ -14,7 +13,7 @@ public partial class HealthComponent : Node {
     public delegate void DeathEventHandler();
 
     public override void _Ready() {
-        _currentHealth = InitialHealth;
+        _currentHealth = MaxHealth;
     }
 
     public void TakeDamage(float damageAmount) {

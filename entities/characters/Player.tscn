@@ -1,9 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://dc2f3tgdp3m8k"]
+[gd_scene load_steps=25 format=3 uid="uid://dc2f3tgdp3m8k"]
 
 [ext_resource type="SpriteFrames" uid="uid://cahioug8lvmb0" path="res://assets/frames/Corvette.tres" id="1_3rerk"]
 [ext_resource type="Script" path="res://scripts/player/Player.cs" id="1_nwhh0"]
 [ext_resource type="PackedScene" uid="uid://bk3u3cj4orlqs" path="res://scenes/components/InputHandler.tscn" id="2_ehiw5"]
 [ext_resource type="PackedScene" uid="uid://dqxssvdki1x7a" path="res://scenes/components/ShipMovement.tscn" id="3_8hs21"]
+[ext_resource type="PackedScene" uid="uid://ndgc5vinix6g" path="res://scenes/components/HealthComponent.tscn" id="5_tvwnq"]
 [ext_resource type="Script" path="res://scripts/player/states/StateMachine.cs" id="5_xnvl0"]
 [ext_resource type="Script" path="res://scripts/player/states/movement/PlayerIdle.cs" id="6_cqj07"]
 [ext_resource type="Script" path="res://scripts/player/states/movement/PlayerThrust.cs" id="7_o47ms"]
@@ -15,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://mn4mcarv17le" path="res://assets/sprites/corvette/Attack_2.png" id="14_1xmpd"]
 [ext_resource type="Script" path="res://scripts/player/WeaponsHandler.cs" id="14_4q3d4"]
 [ext_resource type="PackedScene" uid="uid://cp0ui3b1tma7b" path="res://entities/weapons/Laser.tscn" id="15_l3ujw"]
+[ext_resource type="Script" path="res://scripts/ui/HealthBar.cs" id="17_acbfh"]
 [ext_resource type="PackedScene" uid="uid://dqtk42jfyw81y" path="res://entities/weapons/Cannon.tscn" id="17_fsenk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ad72f"]
@@ -80,6 +82,9 @@ position = Vector2(8, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ad72f")
 
+[node name="HealthComponent" parent="." instance=ExtResource("5_tvwnq")]
+MaxHealth = 100.0
+
 [node name="MovementStateMachine" type="Node2D" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("5_xnvl0")
 InitialState = NodePath("Idle")
@@ -141,3 +146,25 @@ position = Vector2(61, -6.5)
 
 [node name="Cannon2" type="Marker2D" parent="WeaponsHandler"]
 position = Vector2(61, 6.5)
+
+[node name="HealthBar" type="ProgressBar" parent="." node_paths=PackedStringArray("HealthComponent")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -58.0
+offset_right = 46.0
+offset_bottom = -54.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 100.0
+rounded = true
+show_percentage = false
+script = ExtResource("17_acbfh")
+HealthComponent = NodePath("../HealthComponent")
+Offset = Vector2(-46, -70)
+RotationOffset = 40.0

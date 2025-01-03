@@ -9,7 +9,6 @@ public partial class IdleState : State {
     [Export] public TrackingState TrackingState;
     [Export] public AnimatedSprite2D AnimatedSprite2D;
     
-
     [Export] public double SearchDelay;
 
     private Timer _timer;
