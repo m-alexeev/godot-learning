@@ -22,7 +22,7 @@ public partial class HealthComponent : Node {
         if (_currentHealth < 0) {
             _currentHealth = 0;
         }
-        EmitSignal(SignalName.OnHealthUpdate, this, _currentHealth);
+        EmitSignal(SignalName.OnHealthUpdate,_currentHealth);
         if (Mathf.Floor(_currentHealth) <= 0) {
             EmitSignal(SignalName.Death);
         }
@@ -35,4 +35,6 @@ public partial class HealthComponent : Node {
         }
         EmitSignal(SignalName.OnHealthUpdate, _currentHealth);
     }
+
+    public float CurrentHealth => _currentHealth;
 }

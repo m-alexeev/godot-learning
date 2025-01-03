@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b2kkkek1thiwr"]
+[gd_scene load_steps=13 format=3 uid="uid://b2kkkek1thiwr"]
 
 [ext_resource type="Script" path="res://scripts/enemies/Enemy.cs" id="1_2onxr"]
 [ext_resource type="Script" path="res://scripts/player/states/StateMachine.cs" id="1_d16it"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dqxssvdki1x7a" path="res://scenes/components/ShipMovement.tscn" id="6_aw34x"]
 [ext_resource type="Script" path="res://scripts/enemies/states/IdleState.cs" id="9_xs2g8"]
 [ext_resource type="Script" path="res://scripts/enemies/states/SearchingState.cs" id="10_sst4m"]
+[ext_resource type="Script" path="res://scripts/ui/HealthBar.cs" id="11_lgq4k"]
 [ext_resource type="Script" path="res://scripts/enemies/states/TrackingState.cs" id="12_glkiq"]
 [ext_resource type="Script" path="res://scripts/enemies/states/TargetingState.cs" id="13_2np5y"]
 
@@ -78,3 +79,24 @@ script = ExtResource("13_2np5y")
 TrackingState = NodePath("../Tracking")
 TargetingRange = 550.0
 AnimatedSprite2D = NodePath("../../AnimatedSprite2D")
+
+[node name="HealthBar" type="ProgressBar" parent="." node_paths=PackedStringArray("HealthComponent")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -2.0
+offset_right = 46.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 100.0
+show_percentage = false
+script = ExtResource("11_lgq4k")
+HealthComponent = NodePath("../HealthComponent")
+Offset = Vector2(-46, -50)
+RotationOffset = 20.0
