@@ -1,10 +1,10 @@
-[gd_scene load_steps=30 format=3 uid="uid://dc2f3tgdp3m8k"]
+[gd_scene load_steps=29 format=3 uid="uid://dc2f3tgdp3m8k"]
 
-[ext_resource type="SpriteFrames" uid="uid://cahioug8lvmb0" path="res://assets/frames/Corvette.tres" id="1_3rerk"]
 [ext_resource type="Script" path="res://scripts/player/Player.cs" id="1_nwhh0"]
 [ext_resource type="PackedScene" uid="uid://bk3u3cj4orlqs" path="res://scenes/components/InputHandler.tscn" id="2_ehiw5"]
 [ext_resource type="PackedScene" uid="uid://dqxssvdki1x7a" path="res://scenes/components/ShipMovement.tscn" id="3_8hs21"]
-[ext_resource type="PackedScene" uid="uid://ndgc5vinix6g" path="res://scenes/components/HealthComponent.tscn" id="5_tvwnq"]
+[ext_resource type="SpriteFrames" uid="uid://wjhf64icokpl" path="res://assets/frames/Corvette.tres" id="4_xj0gy"]
+[ext_resource type="PackedScene" path="res://scenes/components/HealthComponent.tscn" id="5_tvwnq"]
 [ext_resource type="Script" path="res://scripts/player/states/StateMachine.cs" id="5_xnvl0"]
 [ext_resource type="Script" path="res://scripts/player/states/movement/PlayerIdle.cs" id="6_cqj07"]
 [ext_resource type="Script" path="res://scripts/player/states/movement/PlayerThrust.cs" id="7_o47ms"]
@@ -16,7 +16,6 @@
 [ext_resource type="Texture2D" uid="uid://mn4mcarv17le" path="res://assets/sprites/corvette/Attack_2.png" id="14_1xmpd"]
 [ext_resource type="Script" path="res://scripts/player/WeaponsHandler.cs" id="14_4q3d4"]
 [ext_resource type="PackedScene" uid="uid://cp0ui3b1tma7b" path="res://entities/weapons/Laser.tscn" id="15_l3ujw"]
-[ext_resource type="AudioStream" uid="uid://btab6upnx6ckw" path="res://assets/sounds/laserShoot (1).wav" id="15_vgcds"]
 [ext_resource type="Script" path="res://scripts/ui/HealthBar.cs" id="17_acbfh"]
 [ext_resource type="PackedScene" uid="uid://dqtk42jfyw81y" path="res://entities/weapons/Cannon.tscn" id="17_fsenk"]
 [ext_resource type="Script" path="res://scripts/player/states/actions/ActionTracking.cs" id="18_pii76"]
@@ -82,8 +81,8 @@ BoostSpeed = 1000
 VelocityDampening = 350
 
 [node name="ShipSprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = ExtResource("1_3rerk")
-animation = &"move"
+sprite_frames = ExtResource("4_xj0gy")
+animation = &"boost"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(8, 0)
@@ -132,7 +131,6 @@ AttackAnimation = ExtResource("13_1s7ws")
 AttackCooldown = 300
 Projectile = ExtResource("15_l3ujw")
 ProjectileSpawns = [NodePath("../../WeaponsHandler/Laser1"), NodePath("../../WeaponsHandler/Laser2")]
-ProjectileSfx = ExtResource("15_vgcds")
 
 [node name="ActionCannon" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("IdleState", "ProjectileSpawns")]
 script = ExtResource("13_2hvhy")
@@ -145,6 +143,7 @@ ProjectileSpawns = [NodePath("../../WeaponsHandler/Cannon1"), NodePath("../../We
 [node name="ActionTracking" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("ActionRocket", "TrackingZone")]
 script = ExtResource("18_pii76")
 ActionRocket = NodePath("../ActionRocket")
+LockOnAngle = 30.0
 TrackingZone = NodePath("LockZone")
 LockOnImage = ExtResource("19_qss0v")
 
@@ -164,6 +163,7 @@ RocketSpawns = []
 
 [node name="WeaponsHandler" type="Node2D" parent="."]
 script = ExtResource("14_4q3d4")
+InitialWeapon = 2
 
 [node name="Laser1" type="Marker2D" parent="WeaponsHandler"]
 position = Vector2(52, -28.5)

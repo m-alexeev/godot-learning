@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=16 format=3 uid="uid://cahioug8lvmb0"]
+[gd_resource type="SpriteFrames" load_steps=16 format=3 uid="uid://wjhf64icokpl"]
 
 [ext_resource type="Texture2D" uid="uid://i83otlj8a3m8" path="res://assets/sprites/corvette/Idle.png" id="1_8ndx6"]
 [ext_resource type="Texture2D" uid="uid://dv88f6srj773j" path="res://assets/sprites/corvette/Move.png" id="2_fccxo"]

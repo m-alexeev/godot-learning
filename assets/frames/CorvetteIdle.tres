@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://dfpegeh6vdeca"]
+
+[ext_resource type="Texture2D" uid="uid://i83otlj8a3m8" path="res://assets/sprites/corvette/Idle.png" id="1_us2ha"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_my73w"]
+atlas = ExtResource("1_us2ha")
+region = Rect2(2, 0, 190, 192)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_my73w")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

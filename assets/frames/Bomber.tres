@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=10 format=3 uid="uid://cvxe4st27vl0m"]
+[gd_resource type="SpriteFrames" load_steps=10 format=3 uid="uid://ioe7cr26m8sn"]
 
 [ext_resource type="Texture2D" uid="uid://ch5fm0ppdijat" path="res://assets/sprites/bomber/Idle.png" id="1_3juea"]
 [ext_resource type="Texture2D" uid="uid://dbg5j0grxciic" path="res://assets/sprites/bomber/Move.png" id="2_dwqe8"]
