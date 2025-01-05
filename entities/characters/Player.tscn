@@ -1,10 +1,11 @@
-[gd_scene load_steps=29 format=3 uid="uid://dc2f3tgdp3m8k"]
+[gd_scene load_steps=30 format=3 uid="uid://dc2f3tgdp3m8k"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.cs" id="1_nwhh0"]
 [ext_resource type="PackedScene" uid="uid://bk3u3cj4orlqs" path="res://scenes/components/InputHandler.tscn" id="2_ehiw5"]
 [ext_resource type="PackedScene" uid="uid://dqxssvdki1x7a" path="res://scenes/components/ShipMovement.tscn" id="3_8hs21"]
-[ext_resource type="SpriteFrames" uid="uid://wjhf64icokpl" path="res://assets/frames/Corvette.tres" id="4_xj0gy"]
-[ext_resource type="PackedScene" path="res://scenes/components/HealthComponent.tscn" id="5_tvwnq"]
+[ext_resource type="SpriteFrames" uid="uid://cahioug8lvmb0" path="res://assets/frames/Corvette.tres" id="4_xj0gy"]
+[ext_resource type="PackedScene" uid="uid://dliwssrr57fuu" path="res://scenes/components/TrackingComponenet.tscn" id="5_oostd"]
+[ext_resource type="PackedScene" uid="uid://ndgc5vinix6g" path="res://scenes/components/HealthComponent.tscn" id="5_tvwnq"]
 [ext_resource type="Script" path="res://scripts/player/states/StateMachine.cs" id="5_xnvl0"]
 [ext_resource type="Script" path="res://scripts/player/states/movement/PlayerIdle.cs" id="6_cqj07"]
 [ext_resource type="Script" path="res://scripts/player/states/movement/PlayerThrust.cs" id="7_o47ms"]
@@ -25,6 +26,9 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ad72f"]
 radius = 25.0
 height = 168.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3ikch"]
+radius = 682.124
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dj1vj"]
 atlas = ExtResource("14_1xmpd")
@@ -62,9 +66,6 @@ animations = [{
 "speed": 20.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_7kies"]
-radius = 608.118
-
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_shipMovement", "_inputHandler", "_weaponsHandler") groups=["Player"]]
 collision_mask = 2
 script = ExtResource("1_nwhh0")
@@ -88,6 +89,19 @@ animation = &"boost"
 position = Vector2(8, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ad72f")
+
+[node name="TrackingComponent" parent="." node_paths=PackedStringArray("TrackingArea") instance=ExtResource("5_oostd")]
+TrackingArea = NodePath("LockOn")
+MaxTrackingAngle = 30.0
+NameOfTargets = "Enemy"
+
+[node name="LockOn" type="Area2D" parent="TrackingComponent"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TrackingComponent/LockOn"]
+shape = SubResource("CircleShape2D_3ikch")
+debug_color = Color(0.996078, 0.662745, 0.811765, 0.0666667)
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_tvwnq")]
 MaxHealth = 100.0
@@ -140,20 +154,11 @@ AttackCooldown = 500
 Projectile = ExtResource("17_fsenk")
 ProjectileSpawns = [NodePath("../../WeaponsHandler/Cannon1"), NodePath("../../WeaponsHandler/Cannon2")]
 
-[node name="ActionTracking" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("ActionRocket", "TrackingZone")]
+[node name="ActionTracking" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("ActionRocket", "TrackingComponent")]
 script = ExtResource("18_pii76")
 ActionRocket = NodePath("../ActionRocket")
-LockOnAngle = 30.0
-TrackingZone = NodePath("LockZone")
 LockOnImage = ExtResource("19_qss0v")
-
-[node name="LockZone" type="Area2D" parent="ActionStateMachine/ActionTracking"]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ActionStateMachine/ActionTracking/LockZone"]
-shape = SubResource("CircleShape2D_7kies")
-debug_color = Color(0.941176, 0.654902, 0.654902, 0.105882)
+TrackingComponent = NodePath("../../TrackingComponent")
 
 [node name="ActionRocket" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("IdleState", "TrackingState", "RocketSpawns")]
 script = ExtResource("19_y34nj")

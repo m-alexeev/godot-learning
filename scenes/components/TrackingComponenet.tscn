@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dliwssrr57fuu"]
+
+[ext_resource type="Script" path="res://scripts/components/TrackingComponent.cs" id="1_mkid2"]
+
+[node name="TrackingComponent" type="Node2D"]
+script = ExtResource("1_mkid2")
