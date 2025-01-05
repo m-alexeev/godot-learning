@@ -5,7 +5,7 @@ namespace spacewar.scripts.player;
 public partial class Player : Node2D {
 
 	[Export]
-	private ShipMovement _shipMovement;
+	private ThrustMovement _thrustMovement;
 	[Export]
 	private InputHandler _inputHandler;
 
@@ -14,9 +14,9 @@ public partial class Player : Node2D {
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
 		// Connect signals
-		_inputHandler.Thrust+= _shipMovement.ApplyThrust;
-		_inputHandler.Boost += _shipMovement.ApplyBoost;
-		_inputHandler.MouseRotate += _shipMovement.RotateTowards;
+		_inputHandler.Thrust+= _thrustMovement.ApplyThrust;
+		_inputHandler.Boost += _thrustMovement.ApplyBoost;
+		_inputHandler.MouseRotate += _thrustMovement.RotateTowards;
 		_inputHandler.Shoot += _weaponsHandler.OnShoot;
 		_inputHandler.Swap += _weaponsHandler.OnSwap;
 	}

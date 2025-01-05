@@ -1,8 +1,9 @@
-[gd_resource type="SpriteFrames" load_steps=16 format=3 uid="uid://cahioug8lvmb0"]
+[gd_resource type="SpriteFrames" load_steps=20 format=3 uid="uid://cahioug8lvmb0"]
 
 [ext_resource type="Texture2D" uid="uid://i83otlj8a3m8" path="res://assets/sprites/corvette/Idle.png" id="1_8ndx6"]
 [ext_resource type="Texture2D" uid="uid://dv88f6srj773j" path="res://assets/sprites/corvette/Move.png" id="2_fccxo"]
 [ext_resource type="Texture2D" uid="uid://fp7s4748ydcg" path="res://assets/sprites/corvette/Boost.png" id="3_0cqm5"]
+[ext_resource type="Texture2D" uid="uid://bgjju2c6q8xdu" path="res://assets/sprites/corvette/Charge_3.png" id="4_l0uff"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hp086"]
 atlas = ExtResource("3_0cqm5")
@@ -51,6 +52,18 @@ region = Rect2(768, 0, 192, 192)
 [sub_resource type="AtlasTexture" id="AtlasTexture_t07rk"]
 atlas = ExtResource("2_fccxo")
 region = Rect2(960, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spybu"]
+atlas = ExtResource("4_l0uff")
+region = Rect2(0, 0, 14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ovrya"]
+atlas = ExtResource("4_l0uff")
+region = Rect2(14, 0, 14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cfgk3"]
+atlas = ExtResource("4_l0uff")
+region = Rect2(28, 0, 14, 14)
 
 [resource]
 animations = [{
@@ -104,4 +117,23 @@ animations = [{
 "loop": true,
 "name": &"move",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spybu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ovrya")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cfgk3")
+}],
+"loop": true,
+"name": &"rocket",
+"speed": 12.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"rocket_launch",
+"speed": 5.0
 }]

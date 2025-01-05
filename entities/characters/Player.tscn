@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://scripts/player/Player.cs" id="1_nwhh0"]
 [ext_resource type="PackedScene" uid="uid://bk3u3cj4orlqs" path="res://scenes/components/InputHandler.tscn" id="2_ehiw5"]
-[ext_resource type="PackedScene" uid="uid://dqxssvdki1x7a" path="res://scenes/components/ShipMovement.tscn" id="3_8hs21"]
+[ext_resource type="PackedScene" uid="uid://dqxssvdki1x7a" path="res://scenes/components/ThrustMovement.tscn" id="3_8hs21"]
 [ext_resource type="SpriteFrames" uid="uid://cahioug8lvmb0" path="res://assets/frames/Corvette.tres" id="4_xj0gy"]
-[ext_resource type="PackedScene" uid="uid://dliwssrr57fuu" path="res://scenes/components/TrackingComponenet.tscn" id="5_oostd"]
+[ext_resource type="PackedScene" uid="uid://dliwssrr57fuu" path="res://scenes/components/TrackingComponent.tscn" id="5_oostd"]
 [ext_resource type="PackedScene" uid="uid://ndgc5vinix6g" path="res://scenes/components/HealthComponent.tscn" id="5_tvwnq"]
 [ext_resource type="Script" path="res://scripts/player/states/StateMachine.cs" id="5_xnvl0"]
 [ext_resource type="Script" path="res://scripts/player/states/movement/PlayerIdle.cs" id="6_cqj07"]
@@ -70,17 +70,18 @@ animations = [{
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_shipMovement", "_inputHandler", "_weaponsHandler") groups=["Player"]]
 collision_mask = 2
 script = ExtResource("1_nwhh0")
-_shipMovement = NodePath("ShipMovement")
+_shipMovement = NodePath("ThrustMovement")
 _inputHandler = NodePath("InputHandler")
 _weaponsHandler = NodePath("WeaponsHandler")
 
 [node name="InputHandler" parent="." instance=ExtResource("2_ehiw5")]
 position = Vector2(0, -4)
 
-[node name="ShipMovement" parent="." instance=ExtResource("3_8hs21")]
+[node name="ThrustMovement" parent="." instance=ExtResource("3_8hs21")]
 BoostEnginePower = 7000
 BoostSpeed = 1000
 VelocityDampening = 350
+RotationDampening = 5.0
 
 [node name="ShipSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("4_xj0gy")
@@ -169,8 +170,8 @@ ActionLockOn = NodePath("../ActionLockOn")
 [node name="ActionLockOn" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("ActionSeeking", "TrackingComponent")]
 script = ExtResource("21_biwss")
 ActionSeeking = NodePath("../ActionSeeking")
-TrackingComponent = NodePath("../../TrackingComponent")
 LockOnImage = ExtResource("19_qss0v")
+TrackingComponent = NodePath("../../TrackingComponent")
 
 [node name="WeaponsHandler" type="Node2D" parent="."]
 script = ExtResource("14_4q3d4")

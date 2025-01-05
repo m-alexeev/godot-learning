@@ -10,7 +10,7 @@ public partial class TargetingState: State {
 
     private Player _player;
     private Enemy _enemy;
-    private ShipMovement _shipMovement;
+    private ThrustMovement _thrustMovement;
     public override void Enter() {
         AnimatedSprite2D.SetAnimation("idle");
         AnimatedSprite2D.Play();
@@ -18,7 +18,7 @@ public partial class TargetingState: State {
         GD.Print("Targeting");
         _player = (Player)GetTree().GetFirstNodeInGroup("Player");
         _enemy = GetParent().GetParent<Enemy>();
-        _shipMovement = _enemy.GetNode<ShipMovement>("ShipMovement");
+        _thrustMovement = _enemy.GetNode<ThrustMovement>("ThrustMovement");
     }
      
     public override void PhysicsUpdate(double delta) {
@@ -26,7 +26,7 @@ public partial class TargetingState: State {
             EmitSignal(State.SignalName.Transition, this, TrackingState);
         }
         else {
-            _shipMovement.RotateTowards(_player.Position - _enemy.Position);
+            _thrustMovement.RotateTowards(_player.Position - _enemy.Position);
         }
     } 
 }

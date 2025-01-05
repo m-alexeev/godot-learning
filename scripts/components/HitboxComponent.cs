@@ -1,6 +1,6 @@
 using Godot;
 using System;
 
-public partial class HitboxComponent : Node
+public partial class HitboxComponent : Area2D 
 {
 }

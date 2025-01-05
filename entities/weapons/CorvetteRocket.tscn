@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://ddu7i4l0emvli"]
+
+[ext_resource type="PackedScene" uid="uid://dqxssvdki1x7a" path="res://scenes/components/ThrustMovement.tscn" id="1_0fofp"]
+[ext_resource type="Script" path="res://scripts/projectiles/RocketProjectile.cs" id="1_ujoyt"]
+[ext_resource type="SpriteFrames" uid="uid://cahioug8lvmb0" path="res://assets/frames/Corvette.tres" id="2_e6m7h"]
+[ext_resource type="Script" path="res://scripts/components/HitboxComponent.cs" id="3_y7uc7"]
+[ext_resource type="Script" path="res://scripts/components/DamageComponent.cs" id="5_xbcwi"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dorbh"]
+radius = 2.0
+height = 8.0
+
+[node name="CorvetteRocket" type="Node2D" node_paths=PackedStringArray("_hitboxComponent", "_movement")]
+script = ExtResource("1_ujoyt")
+_lifetime = 10
+_hitboxComponent = NodePath("HitboxComponent")
+_movement = NodePath("ThrustMovement")
+
+[node name="ThrustMovement" parent="." instance=ExtResource("1_0fofp")]
+EnginePower = 10000
+Speed = 800
+BoostSpeed = 1000
+RotationDampening = 10.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_e6m7h")
+animation = &"rocket"
+autoplay = "rocket"
+frame_progress = 0.53761
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+script = ExtResource("3_y7uc7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(1, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_dorbh")
+debug_color = Color(0, 0.631373, 0.47451, 0.113725)
+
+[node name="FuelTimer" type="Timer" parent="."]
+
+[node name="DamageComponent" type="Node2D" parent="."]
+script = ExtResource("5_xbcwi")
+Damage = 20.0
+DamageMultiplier = 1.0

@@ -23,10 +23,17 @@ public partial class HurtboxComponent : Area2D {
         }
         EmitSignal(SignalName.OnDamage, damageComponent.Damage * damageComponent.DamageMultiplier);
     }
-    
+
     private void OnAreaEntered(Area2D collisionArea) {
-        if (collisionArea is BaseProjectile) {
+        if (collisionArea is BaseProjectile){
             // Get damage component
+            DamageComponent damageComponent = collisionArea.GetNode<DamageComponent>("DamageComponent");
+            if (damageComponent != null) {
+                DealDamage(damageComponent);     
+            }
+        }
+
+        if (collisionArea.GetNode<HitboxComponent>("HitboxComponent") != null) {
             DamageComponent damageComponent = collisionArea.GetNode<DamageComponent>("DamageComponent");
             if (damageComponent != null) {
                 DealDamage(damageComponent);     

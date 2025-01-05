@@ -9,11 +9,11 @@ public partial class PlayerThrust: State {
     [Export] public State IdleState;
     [Export] public State BoostState;
     
-    private ShipMovement _movement;
+    private ThrustMovement _movement;
     
     public override void Enter() {
         Node player = GetParent().GetParent();
-        _movement = player.GetNode<ShipMovement>("ShipMovement");
+        _movement = player.GetNode<ThrustMovement>("ThrustMovement");
         AnimatedSprite.SetAnimation("move");
         AnimatedSprite.Play();
     }

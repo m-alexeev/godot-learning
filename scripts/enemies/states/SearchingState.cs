@@ -16,7 +16,7 @@ public partial class SearchingState: State {
     private Vector2 _nextLocation;
     private const float Tolerance = 10; 
     
-    private ShipMovement _shipMovement;
+    private ThrustMovement _thrustMovement;
     public override void Enter() {
         AnimatedSprite2D.SetAnimation("move");
         AnimatedSprite2D.Play();
@@ -24,21 +24,21 @@ public partial class SearchingState: State {
         
         _player = (Player)GetTree().GetFirstNodeInGroup("Player");
         _enemy = GetParent().GetParent<Enemy>();
-        _shipMovement = _enemy.GetNode<ShipMovement>("ShipMovement");
+        _thrustMovement = _enemy.GetNode<ThrustMovement>("ThrustMovement");
         ChooseNextSearchLocation();
     }
 
     public override void PhysicsUpdate(double delta) {
         if (_enemy.Position.DistanceTo(_player.Position) <= TrackingState.TrackingRange) {
-            _shipMovement.ApplyThrust(0);
+            _thrustMovement.ApplyThrust(0);
             EmitSignal(State.SignalName.Transition, this, TrackingState);
         }
         else if (_enemy.Position.DistanceTo(_nextLocation) < Tolerance) {
             EmitSignal(State.SignalName.Transition, this, IdleState);
         }
         else {
-           _shipMovement.RotateTowards(_nextLocation - _enemy.Position); 
-           _shipMovement.ApplyThrust(1);
+           _thrustMovement.RotateTowards(_nextLocation - _enemy.Position); 
+           _thrustMovement.ApplyThrust(1);
         }
     }
 

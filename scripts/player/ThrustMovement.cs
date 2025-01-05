@@ -4,14 +4,14 @@ using System;
 namespace  spacewar.scripts.player;
 
 
-public partial class ShipMovement : Node2D {
+public partial class ThrustMovement : Node2D {
 	[Export] public int EnginePower{ get; set; } = 5000;
 	[Export] public int BoostEnginePower { get; set; } = 6000;
-	[Export] public int Mass { get; set; } = 10;
+	[Export] public float Mass { get; set; } = 10;
 	[Export] public int Speed { get; set; } = 500;
 	[Export] public int BoostSpeed { get; set; } = 800;
 	[Export] public int VelocityDampening { get; set; } = 20;
-	[Export] public float RotateSpeed { get; set; } = 0.2f; 
+	[Export] public float RotationDampening { get; set; } = 0.2f; 
 
 	private Node2D _parent;
 
@@ -60,7 +60,7 @@ public partial class ShipMovement : Node2D {
 		float targetRotation = Mathf.Atan2(_rotation.Y, _rotation.X);
 
 		// Interpolate the rotation angle
-		_parent.Rotation = (float)Mathf.LerpAngle(currentRotation, targetRotation, RotateSpeed* delta);
+		_parent.Rotation = (float)Mathf.LerpAngle(currentRotation, targetRotation, RotationDampening* delta);
 	}
 
 	public void ApplyThrust(float thrustDirection) {

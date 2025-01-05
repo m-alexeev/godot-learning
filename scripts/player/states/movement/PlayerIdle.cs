@@ -9,11 +9,11 @@ public partial class PlayerIdle : State {
     [Export] public State ThrustState;
     [Export] public State BoostState;
 
-    private ShipMovement _movement;
+    private ThrustMovement _movement;
     
     public override void Enter() {
         Node player = GetParent().GetParent();
-        _movement = player.GetNode<ShipMovement>("ShipMovement");
+        _movement = player.GetNode<ThrustMovement>("ThrustMovement");
         AnimatedSprite.SetAnimation("idle");
     }
 
