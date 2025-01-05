@@ -11,6 +11,7 @@ public partial class ActionLockOn : State {
 
     private Node2D _tracker;
     [Export] public State ActionSeeking;
+    [Export] public State ActionShootRocket;
     [Export] public Texture2D LockOnImage;
     [Export] public TrackingComponent TrackingComponent;
 
