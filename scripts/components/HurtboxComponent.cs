@@ -33,8 +33,9 @@ public partial class HurtboxComponent : Area2D {
             }
         }
 
-        if (collisionArea.GetNode<HitboxComponent>("HitboxComponent") != null) {
-            DamageComponent damageComponent = collisionArea.GetNode<DamageComponent>("DamageComponent");
+        Node2D colliderRoot = collisionArea.GetOwner<Node2D>();
+        if (colliderRoot.GetNode<HitboxComponent>("HitboxComponent") != null) {
+            DamageComponent damageComponent = colliderRoot.GetNode<DamageComponent>("DamageComponent");
             if (damageComponent != null) {
                 DealDamage(damageComponent);     
             }

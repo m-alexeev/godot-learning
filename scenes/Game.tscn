@@ -18,5 +18,6 @@ position_smoothing_enabled = true
 position = Vector2(685, -10)
 
 [node name="CorvetteRocket" parent="." node_paths=PackedStringArray("_target") instance=ExtResource("3_8e0tv")]
-position = Vector2(242, 474)
+position = Vector2(0, 481)
+scale = Vector2(3.41666, 3.41666)
 _target = NodePath("../Enemy")
