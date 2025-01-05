@@ -41,6 +41,7 @@ public partial class ActionLockOn : State {
     }
 
     public override void Update(double delta) {
+        // Update to get from input 
         if (Input.IsActionPressed("shoot")) {
             EmitSignal(State.SignalName.Transition, this, ActionShootRocket);
         }

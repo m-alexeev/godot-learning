@@ -18,6 +18,7 @@ public partial class ActionIdle : State {
     
     public override void Update(double delta) {
         // Change to different action states
+        //TODO: Refactor this
         if (_weaponsHandler.IsShooting) {
             if (_weaponsHandler.CurrentWeapon == Weapon.LASER) {
                 EmitSignal(State.SignalName.Transition, this, ActionLaser);

@@ -26,7 +26,8 @@ public partial class TrackingComponent : Node2D {
         float minAngle = MaxTrackingAngle;
         Node2D prevTarget = _trackedTarget;
         Node2D newTarget = null;
-        // Find closest target to tracker based on forward vector
+        // TODO: Update the tracked list to remove deleted nodes
+        // Find the closest target to tracker based on forward vector
         foreach (var target in _targetsInRange) {
             float angleToTarget = _tracker.GetAngleTo(target.Position);
             if (Mathf.Abs(angleToTarget) < Mathf.DegToRad(MaxTrackingAngle) && angleToTarget < minAngle) {

@@ -19,6 +19,7 @@ public partial class ActionRocket: State {
    private ulong _lastAttackTime;
 
    public override void Enter() {
+      // TODO: Fix the animated sprites issues
       _parent = GetOwner<Node2D>(); 
       _gameNode = (Node2D)GetTree().GetRoot().GetNode("Game");
       _trackingComponent = _parent.GetNode<TrackingComponent>("TrackingComponent");
