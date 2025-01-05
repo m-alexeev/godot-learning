@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://do4efkm1i01f4"]
+[gd_scene load_steps=3 format=3 uid="uid://do4efkm1i01f4"]
 
 [ext_resource type="PackedScene" uid="uid://dc2f3tgdp3m8k" path="res://entities/characters/Player.tscn" id="1_vp2nm"]
 [ext_resource type="PackedScene" uid="uid://b2kkkek1thiwr" path="res://entities/characters/Enemy.tscn" id="2_ax34d"]
-[ext_resource type="PackedScene" uid="uid://ddu7i4l0emvli" path="res://entities/weapons/CorvetteRocket.tscn" id="3_8e0tv"]
 
 [node name="Game" type="Node2D"]
 
@@ -16,8 +15,3 @@ position_smoothing_enabled = true
 
 [node name="Enemy" parent="." instance=ExtResource("2_ax34d")]
 position = Vector2(685, -10)
-
-[node name="CorvetteRocket" parent="." node_paths=PackedStringArray("_target") instance=ExtResource("3_8e0tv")]
-position = Vector2(0, 481)
-scale = Vector2(3.41666, 3.41666)
-_target = NodePath("../Enemy")

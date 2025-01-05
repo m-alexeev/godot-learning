@@ -1,25 +1,27 @@
 ﻿using Godot;
 using Godot.Collections;
+using spacewar.scripts.components;
 
 namespace spacewar.scripts.player.states.actions;
 
 public partial class ActionRocket: State {
-   [Export] public State IdleState;
-   [Export] public State TrackingState;
+   [Export] public State SeekingState;
    [Export] public SpriteFrames LaunchAnimation;
 
    [Export] public ulong LaunchCooldown;
    [Export] public PackedScene RocketProjectile;
    [Export] public Array<Marker2D> RocketSpawns;
 
+   private TrackingComponent _trackingComponent;
    private AnimatedSprite2D _animatedSprite2D;
    private Node2D _parent;
    private Node2D _gameNode;
    private ulong _lastAttackTime;
 
    public override void Enter() {
-      _parent = (Node2D)GetParent().GetParent();
+      _parent = GetOwner<Node2D>(); 
       _gameNode = (Node2D)GetTree().GetRoot().GetNode("Game");
+      _trackingComponent = _parent.GetNode<TrackingComponent>("TrackingComponent");
       _animatedSprite2D = new AnimatedSprite2D();
       _animatedSprite2D.AnimationFinished += AnimatedSprite2DOnAnimationFinished;
    }
@@ -47,14 +49,18 @@ public partial class ActionRocket: State {
    }
 
    private void InstantiateProjectile(Marker2D spawnPoint) {
-      
+       RocketProjectile projectile = (RocketProjectile)RocketProjectile.Instantiate();
+       projectile.Position = spawnPoint.GlobalPosition;
+       projectile.Rotation = _parent.Rotation;
+       projectile.SetTarget(_trackingComponent.TrackedTarget);
+       _gameNode.AddChild(projectile);
    }
    
    private void AnimatedSprite2DOnAnimationFinished() {
       LaunchProjectile();
       _animatedSprite2D.QueueFree();
 
-      EmitSignal(State.SignalName.Transition, this, TrackingState);
+      EmitSignal(State.SignalName.Transition, this, SeekingState);
    }
    
    

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dc2f3tgdp3m8k"]
+[gd_scene load_steps=33 format=3 uid="uid://dc2f3tgdp3m8k"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.cs" id="1_nwhh0"]
 [ext_resource type="PackedScene" uid="uid://bk3u3cj4orlqs" path="res://scenes/components/InputHandler.tscn" id="2_ehiw5"]
@@ -20,8 +20,10 @@
 [ext_resource type="Script" path="res://scripts/ui/HealthBar.cs" id="17_acbfh"]
 [ext_resource type="PackedScene" uid="uid://dqtk42jfyw81y" path="res://entities/weapons/Cannon.tscn" id="17_fsenk"]
 [ext_resource type="Script" path="res://scripts/player/states/actions/ActionSeeking.cs" id="19_0q1sy"]
+[ext_resource type="SpriteFrames" uid="uid://c54p5svuh0v30" path="res://assets/frames/CorvetteRocketStart.tres" id="19_f5pmd"]
 [ext_resource type="Texture2D" uid="uid://ckf408gs2wxfa" path="res://assets/sprites/target.png" id="19_qss0v"]
 [ext_resource type="Script" path="res://scripts/player/states/actions/ActionRocket.cs" id="19_y34nj"]
+[ext_resource type="PackedScene" uid="uid://ddu7i4l0emvli" path="res://entities/weapons/CorvetteRocket.tscn" id="20_xs57w"]
 [ext_resource type="Script" path="res://scripts/player/states/actions/ActionLockOn.cs" id="21_biwss"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ad72f"]
@@ -156,20 +158,23 @@ AttackCooldown = 500
 Projectile = ExtResource("17_fsenk")
 ProjectileSpawns = [NodePath("../../WeaponsHandler/Cannon1"), NodePath("../../WeaponsHandler/Cannon2")]
 
-[node name="ActionRocket" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("IdleState", "TrackingState", "RocketSpawns")]
+[node name="ActionRocket" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("SeekingState", "RocketSpawns")]
 script = ExtResource("19_y34nj")
-IdleState = NodePath("../ActionIdle")
-TrackingState = NodePath("../ActionSeeking")
-RocketSpawns = []
+SeekingState = NodePath("../ActionSeeking")
+LaunchAnimation = ExtResource("19_f5pmd")
+LaunchCooldown = 500
+RocketProjectile = ExtResource("20_xs57w")
+RocketSpawns = [NodePath("../../WeaponsHandler/Rocket1"), NodePath("../../WeaponsHandler/Rocket2"), NodePath("../../WeaponsHandler/Rocket3")]
 
 [node name="ActionSeeking" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("TrackingComponent", "ActionLockOn")]
 script = ExtResource("19_0q1sy")
 TrackingComponent = NodePath("../../TrackingComponent")
 ActionLockOn = NodePath("../ActionLockOn")
 
-[node name="ActionLockOn" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("ActionSeeking", "TrackingComponent")]
+[node name="ActionLockOn" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("ActionSeeking", "ActionShootRocket", "TrackingComponent")]
 script = ExtResource("21_biwss")
 ActionSeeking = NodePath("../ActionSeeking")
+ActionShootRocket = NodePath("../ActionRocket")
 LockOnImage = ExtResource("19_qss0v")
 TrackingComponent = NodePath("../../TrackingComponent")
 

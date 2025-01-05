@@ -34,13 +34,22 @@ public partial class ActionLockOn : State {
     }
 
     private void TrackingComponentOnTrackingTarget(Node2D target) {
-        if (target == null)
+        if (target == null) {
             // Go back to seeking state if no tracking target exists
             EmitSignal(State.SignalName.Transition, this, ActionSeeking);
+        }
+    }
+
+    public override void Update(double delta) {
+        if (Input.IsActionPressed("shoot")) {
+            EmitSignal(State.SignalName.Transition, this, ActionShootRocket);
+        }
     }
 
     public override void PhysicsUpdate(double delta) {
-        if (_trackedEnemy != null) _lockOnSprite.Position = _trackedEnemy.Position;
+        if (_trackedEnemy != null) {
+            _lockOnSprite.Position = _trackedEnemy.Position;
+        }
     }
 
     public override void Exit() {
