@@ -37,8 +37,8 @@ public partial class TrackingComponent : Node2D {
         
         if (prevTarget != newTarget) {
             // Signal that new target is being tracked
-            EmitSignal(SignalName.TrackingTarget, newTarget);
             _trackedTarget = newTarget;
+            EmitSignal(SignalName.TrackingTarget, newTarget);
         }
     }
     
