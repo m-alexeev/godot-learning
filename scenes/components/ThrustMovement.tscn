@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dqxssvdki1x7a"]
 
-[ext_resource type="Script" path="res://scripts/player/ShipMovement.cs" id="1_4vb7x"]
+[ext_resource type="Script" path="res://scripts/player/ThrustMovement.cs" id="1_wmdku"]
 
 [node name="ThrustMovement" type="Node2D"]
-script = ExtResource("1_4vb7x")
+script = ExtResource("1_wmdku")

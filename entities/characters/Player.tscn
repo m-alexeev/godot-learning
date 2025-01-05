@@ -67,10 +67,10 @@ animations = [{
 "speed": 20.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_shipMovement", "_inputHandler", "_weaponsHandler") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_thrustMovement", "_inputHandler", "_weaponsHandler") groups=["Player"]]
 collision_mask = 2
 script = ExtResource("1_nwhh0")
-_shipMovement = NodePath("ThrustMovement")
+_thrustMovement = NodePath("ThrustMovement")
 _inputHandler = NodePath("InputHandler")
 _weaponsHandler = NodePath("WeaponsHandler")
 
@@ -78,8 +78,8 @@ _weaponsHandler = NodePath("WeaponsHandler")
 position = Vector2(0, -4)
 
 [node name="ThrustMovement" parent="." instance=ExtResource("3_8hs21")]
-BoostEnginePower = 7000
-BoostSpeed = 1000
+EnginePower = 7000
+BoostEnginePower = 10000
 VelocityDampening = 350
 RotationDampening = 5.0
 

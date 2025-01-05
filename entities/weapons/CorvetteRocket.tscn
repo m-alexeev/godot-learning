@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://ddu7i4l0emvli"]
+[gd_scene load_steps=8 format=3 uid="uid://ddu7i4l0emvli"]
 
 [ext_resource type="PackedScene" uid="uid://dqxssvdki1x7a" path="res://scenes/components/ThrustMovement.tscn" id="1_0fofp"]
 [ext_resource type="Script" path="res://scripts/projectiles/RocketProjectile.cs" id="1_ujoyt"]
 [ext_resource type="SpriteFrames" uid="uid://cahioug8lvmb0" path="res://assets/frames/Corvette.tres" id="2_e6m7h"]
+[ext_resource type="Script" path="res://scripts/player/ThrustMovement.cs" id="3_fa8uq"]
 [ext_resource type="Script" path="res://scripts/components/HitboxComponent.cs" id="3_y7uc7"]
 [ext_resource type="Script" path="res://scripts/components/DamageComponent.cs" id="5_xbcwi"]
 
@@ -17,6 +18,7 @@ _hitboxComponent = NodePath("HitboxComponent")
 _movement = NodePath("ThrustMovement")
 
 [node name="ThrustMovement" parent="." instance=ExtResource("1_0fofp")]
+script = ExtResource("3_fa8uq")
 EnginePower = 10000
 Speed = 800
 BoostSpeed = 1000
@@ -29,6 +31,7 @@ autoplay = "rocket"
 frame_progress = 0.53761
 
 [node name="HitboxComponent" type="Area2D" parent="."]
+collision_mask = 55
 script = ExtResource("3_y7uc7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]

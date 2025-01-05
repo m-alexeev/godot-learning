@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://b2kkkek1thiwr"]
+[gd_scene load_steps=15 format=3 uid="uid://b2kkkek1thiwr"]
 
 [ext_resource type="Script" path="res://scripts/enemies/Enemy.cs" id="1_2onxr"]
 [ext_resource type="Script" path="res://scripts/player/states/StateMachine.cs" id="1_d16it"]
 [ext_resource type="SpriteFrames" uid="uid://cvxe4st27vl0m" path="res://assets/frames/Bomber.tres" id="2_v578v"]
+[ext_resource type="Script" path="res://scripts/player/ThrustMovement.cs" id="4_1auve"]
 [ext_resource type="Script" path="res://scripts/components/HurtboxComponent.cs" id="4_kqemd"]
 [ext_resource type="PackedScene" uid="uid://ndgc5vinix6g" path="res://scenes/components/HealthComponent.tscn" id="5_q50br"]
 [ext_resource type="PackedScene" uid="uid://dqxssvdki1x7a" path="res://scenes/components/ThrustMovement.tscn" id="6_aw34x"]
@@ -25,11 +26,13 @@ sprite_frames = ExtResource("2_v578v")
 animation = &"move"
 
 [node name="ThrustMovement" parent="." instance=ExtResource("6_aw34x")]
+script = ExtResource("4_1auve")
 EnginePower = 0
+Mass = 5.0
 Speed = 400
 BoostSpeed = 600
 VelocityDampening = 500
-RotationDampening = 2.0
+RotationDampening = 7.0
 
 [node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent")]
 collision_layer = 2
