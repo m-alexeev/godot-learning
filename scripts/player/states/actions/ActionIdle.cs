@@ -1,3 +1,4 @@
+using System;
 using spacewar.scripts.player.enums;
 using Godot;
 
@@ -13,22 +14,28 @@ public partial class ActionIdle : State {
     public override void Enter() {
         Node parent = GetParent().GetParent();
         _weaponsHandler = parent.GetNode<WeaponsHandler>("WeaponsHandler");
+        _weaponsHandler.WeaponSwitched += WeaponsHandlerOnWeaponSwitched;
     }
-    
-    
+
+    private void WeaponsHandlerOnWeaponSwitched(Weapon selectedweapon) {
+        switch (selectedweapon) {
+            case Weapon.LASER:
+                EmitSignal(State.SignalName.Transition, this, ActionLaser);
+                break;
+            case Weapon.CANNON:
+                EmitSignal(State.SignalName.Transition, this, ActionCannon);
+                break;
+            case Weapon.ROCKET:
+                EmitSignal(State.SignalName.Transition, this, ActionTracking);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(selectedweapon), selectedweapon, null);
+        }
+    }
+
+
     public override void Update(double delta) {
         // Change to different action states
         //TODO: Refactor this
-        if (_weaponsHandler.IsShooting) {
-            if (_weaponsHandler.CurrentWeapon == Weapon.LASER) {
-                EmitSignal(State.SignalName.Transition, this, ActionLaser);
-            } 
-            if (_weaponsHandler.CurrentWeapon == Weapon.CANNON) {
-                EmitSignal(State.SignalName.Transition, this, ActionCannon);
-            }
-        } 
-        if (_weaponsHandler.CurrentWeapon == Weapon.ROCKET) {
-            EmitSignal(State.SignalName.Transition, this, ActionTracking);
-        }
     }
 }

@@ -12,7 +12,9 @@ public partial class WeaponsHandler : Node2D {
     [Export] public Weapon InitialWeapon;
     private bool _shooting;
     private Weapon _currentWeapon;
-    
+
+    [Signal]
+    public delegate void WeaponSwitchedEventHandler(Weapon selectedWeapon); 
     
     public override void _Ready() {
         _currentWeapon = InitialWeapon;
@@ -28,6 +30,7 @@ public partial class WeaponsHandler : Node2D {
         else if (_currentWeapon == Weapon.ROCKET) {
             _currentWeapon = Weapon.LASER;
         }
+        EmitSignal(SignalName.WeaponSwitched, WeaponUtils.ToVariant(_currentWeapon));
     }
     
     public void OnSwap(bool swap) {
@@ -40,6 +43,6 @@ public partial class WeaponsHandler : Node2D {
         _shooting = shoot;
     }
     public bool IsShooting => _shooting;
-    public Weapon CurrentWeapon => _currentWeapon;
+    // public Weapon CurrentWeapon => _currentWeapon;
     
 }
