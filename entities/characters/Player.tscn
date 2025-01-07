@@ -15,7 +15,6 @@
 [ext_resource type="SpriteFrames" uid="uid://7t5dj7q8j37t" path="res://assets/frames/CorvetteLaserStart.tres" id="13_1s7ws"]
 [ext_resource type="Script" path="res://scripts/player/states/actions/ActionProjectile.cs" id="13_2hvhy"]
 [ext_resource type="Texture2D" uid="uid://mn4mcarv17le" path="res://assets/sprites/corvette/Attack_2.png" id="14_1xmpd"]
-[ext_resource type="Script" path="res://scripts/player/WeaponsHandler.cs" id="14_4q3d4"]
 [ext_resource type="PackedScene" uid="uid://cp0ui3b1tma7b" path="res://entities/weapons/Laser.tscn" id="15_l3ujw"]
 [ext_resource type="Script" path="res://scripts/ui/HealthBar.cs" id="17_acbfh"]
 [ext_resource type="PackedScene" uid="uid://dqtk42jfyw81y" path="res://entities/weapons/Cannon.tscn" id="17_fsenk"]
@@ -25,6 +24,7 @@
 [ext_resource type="Script" path="res://scripts/player/states/actions/ActionRocket.cs" id="19_y34nj"]
 [ext_resource type="PackedScene" uid="uid://ddu7i4l0emvli" path="res://entities/weapons/CorvetteRocket.tscn" id="20_xs57w"]
 [ext_resource type="Script" path="res://scripts/player/states/actions/ActionLockOn.cs" id="21_biwss"]
+[ext_resource type="Script" path="res://scripts/components/WeaponsComponent.cs" id="24_u0g1i"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ad72f"]
 radius = 25.0
@@ -74,7 +74,7 @@ collision_mask = 2
 script = ExtResource("1_nwhh0")
 _thrustMovement = NodePath("ThrustMovement")
 _inputHandler = NodePath("InputHandler")
-_weaponsHandler = NodePath("WeaponsHandler")
+_weaponsHandler = NodePath("WeaponsComponent")
 
 [node name="InputHandler" parent="." instance=ExtResource("2_ehiw5")]
 position = Vector2(0, -4)
@@ -148,7 +148,7 @@ IdleState = NodePath("../ActionIdle")
 AttackAnimation = ExtResource("13_1s7ws")
 AttackCooldown = 300
 Projectile = ExtResource("15_l3ujw")
-ProjectileSpawns = [NodePath("../../WeaponsHandler/Laser1"), NodePath("../../WeaponsHandler/Laser2")]
+ProjectileSpawns = [NodePath("../../WeaponsComponent/Laser1"), NodePath("../../WeaponsComponent/Laser2")]
 
 [node name="ActionCannon" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("IdleState", "ProjectileSpawns")]
 script = ExtResource("13_2hvhy")
@@ -156,7 +156,7 @@ IdleState = NodePath("../ActionIdle")
 AttackAnimation = SubResource("SpriteFrames_j882d")
 AttackCooldown = 500
 Projectile = ExtResource("17_fsenk")
-ProjectileSpawns = [NodePath("../../WeaponsHandler/Cannon1"), NodePath("../../WeaponsHandler/Cannon2")]
+ProjectileSpawns = [NodePath("../../WeaponsComponent/Cannon1"), NodePath("../../WeaponsComponent/Cannon2")]
 
 [node name="ActionRocket" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("SeekingState", "RocketSpawns")]
 script = ExtResource("19_y34nj")
@@ -164,7 +164,7 @@ SeekingState = NodePath("../ActionSeeking")
 LaunchAnimation = ExtResource("19_f5pmd")
 LaunchCooldown = 500
 RocketProjectile = ExtResource("20_xs57w")
-RocketSpawns = [NodePath("../../WeaponsHandler/Rocket1"), NodePath("../../WeaponsHandler/Rocket2"), NodePath("../../WeaponsHandler/Rocket3")]
+RocketSpawns = [NodePath("../../WeaponsComponent/Rocket1"), NodePath("../../WeaponsComponent/Rocket2"), NodePath("../../WeaponsComponent/Rocket3")]
 
 [node name="ActionSeeking" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("TrackingComponent", "ActionLockOn")]
 script = ExtResource("19_0q1sy")
@@ -178,29 +178,28 @@ ActionShootRocket = NodePath("../ActionRocket")
 LockOnImage = ExtResource("19_qss0v")
 TrackingComponent = NodePath("../../TrackingComponent")
 
-[node name="WeaponsHandler" type="Node2D" parent="."]
-script = ExtResource("14_4q3d4")
-InitialWeapon = 2
+[node name="WeaponsComponent" type="Node2D" parent="."]
+script = ExtResource("24_u0g1i")
 
-[node name="Laser1" type="Marker2D" parent="WeaponsHandler"]
+[node name="Laser1" type="Marker2D" parent="WeaponsComponent"]
 position = Vector2(52, -28.5)
 
-[node name="Laser2" type="Marker2D" parent="WeaponsHandler"]
+[node name="Laser2" type="Marker2D" parent="WeaponsComponent"]
 position = Vector2(52, 28.5)
 
-[node name="Cannon1" type="Marker2D" parent="WeaponsHandler"]
+[node name="Cannon1" type="Marker2D" parent="WeaponsComponent"]
 position = Vector2(61, -6.5)
 
-[node name="Cannon2" type="Marker2D" parent="WeaponsHandler"]
+[node name="Cannon2" type="Marker2D" parent="WeaponsComponent"]
 position = Vector2(61, 6.5)
 
-[node name="Rocket1" type="Marker2D" parent="WeaponsHandler"]
+[node name="Rocket1" type="Marker2D" parent="WeaponsComponent"]
 position = Vector2(79, -32)
 
-[node name="Rocket2" type="Marker2D" parent="WeaponsHandler"]
+[node name="Rocket2" type="Marker2D" parent="WeaponsComponent"]
 position = Vector2(83, -1)
 
-[node name="Rocket3" type="Marker2D" parent="WeaponsHandler"]
+[node name="Rocket3" type="Marker2D" parent="WeaponsComponent"]
 position = Vector2(77, 34)
 
 [node name="HealthBar" type="ProgressBar" parent="." node_paths=PackedStringArray("HealthComponent")]

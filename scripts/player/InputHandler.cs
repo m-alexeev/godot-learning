@@ -8,7 +8,7 @@ public partial class InputHandler : Node2D {
 	[Signal]
 	public delegate void BoostEventHandler(bool input);
 	[Signal]
-	public delegate void ShootEventHandler(bool input);
+	public delegate void ShootEventHandler();
 	[Signal]
 	public delegate void SwapEventHandler(bool input);
 	[Signal]
@@ -51,7 +51,7 @@ public partial class InputHandler : Node2D {
 		
 		// Actions
 		if (@event.IsActionPressed("shoot")) {
-			EmitSignal(SignalName.Shoot, true);
+			EmitSignal(SignalName.Shoot);
 		}
 		if (@event.IsActionReleased("shoot")) {
 			EmitSignal(SignalName.Shoot, false);

@@ -7,14 +7,16 @@ using spacewar.scripts.player.states;
 
 namespace spacewar.scripts.player;
 
-public partial class WeaponsHandler : Node2D {
+public partial class WeaponsComponent : Node2D {
 
     [Export] public Weapon InitialWeapon;
-    private bool _shooting;
     private Weapon _currentWeapon;
 
     [Signal]
-    public delegate void WeaponSwitchedEventHandler(Weapon selectedWeapon); 
+    public delegate void WeaponSwitchedEventHandler(Weapon selectedWeapon);
+
+    [Signal]
+    public delegate void WeaponFiredEventHandler();
     
     public override void _Ready() {
         _currentWeapon = InitialWeapon;
@@ -39,10 +41,7 @@ public partial class WeaponsHandler : Node2D {
         } 
     }
 
-    public void OnShoot(bool shoot) {
-        _shooting = shoot;
+    public void ShootWeapon() {
+        EmitSignal(SignalName.WeaponFired);
     }
-    public bool IsShooting => _shooting;
-    // public Weapon CurrentWeapon => _currentWeapon;
-    
 }

@@ -14,6 +14,7 @@ public partial class ActionLockOn : State {
     [Export] public State ActionShootRocket;
     [Export] public Texture2D LockOnImage;
     [Export] public TrackingComponent TrackingComponent;
+    [Export] public WeaponsComponent WeaponsComponent;
 
     public override void Enter() {
         GD.Print("Locking State");
@@ -30,20 +31,18 @@ public partial class ActionLockOn : State {
         }
 
         TrackingComponent.TrackingTarget += TrackingComponentOnTrackingTarget;
+        WeaponsComponent.WeaponFired += WeaponsComponentOnWeaponFired;
         _trackedEnemy = (Enemy)TrackingComponent.TrackedTarget;
+    }
+
+    private void WeaponsComponentOnWeaponFired() {
+        EmitSignal(State.SignalName.Transition, this, ActionShootRocket);
     }
 
     private void TrackingComponentOnTrackingTarget(Node2D target) {
         if (target == null) {
             // Go back to seeking state if no tracking target exists
             EmitSignal(State.SignalName.Transition, this, ActionSeeking);
-        }
-    }
-
-    public override void Update(double delta) {
-        // Update to get from input 
-        if (Input.IsActionPressed("shoot")) {
-            EmitSignal(State.SignalName.Transition, this, ActionShootRocket);
         }
     }
 

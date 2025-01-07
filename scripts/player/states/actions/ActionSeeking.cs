@@ -13,6 +13,7 @@ public partial class ActionSeeking: State {
       TrackingComponent.TrackingTarget += TrackingComponentOnTrackingTarget; 
    }
 
+
    private void TrackingComponentOnTrackingTarget(Node2D target) {
       if (target != null) {
          EmitSignal(State.SignalName.Transition, this, ActionLockOn);
