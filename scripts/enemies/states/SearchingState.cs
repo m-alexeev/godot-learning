@@ -20,7 +20,6 @@ public partial class SearchingState: State {
     public override void Enter() {
         AnimatedSprite2D.SetAnimation("move");
         AnimatedSprite2D.Play();
-        GD.Print("Searching");
         
         _player = (Player)GetTree().GetFirstNodeInGroup("Player");
         _enemy = GetParent().GetParent<Enemy>();
@@ -43,8 +42,6 @@ public partial class SearchingState: State {
     }
 
     private void ChooseNextSearchLocation() {
-        GD.Print("Next location");
         _nextLocation = _enemy.Position + new Vector2(GD.RandRange(-1, 1), GD.RandRange(-1,1)).Normalized() * WanderRange;
-        GD.Print(_nextLocation);
     }
 }

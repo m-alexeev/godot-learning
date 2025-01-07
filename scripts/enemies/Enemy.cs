@@ -14,7 +14,6 @@ public partial class Enemy : Node2D {
 
 
     private void OnDie() {
-        GD.Print("Dying");
         QueueFree();
     } 
 }

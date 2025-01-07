@@ -17,7 +17,6 @@ public partial class TrackingState : State {
         AnimatedSprite2D.SetAnimation("move");
         AnimatedSprite2D.Play();
         
-        GD.Print("Tracking");
         _player = (Player)GetTree().GetFirstNodeInGroup("Player");
         _enemy = GetParent().GetParent<Enemy>();
         _thrustMovement = _enemy.GetNode<ThrustMovement>("ThrustMovement");

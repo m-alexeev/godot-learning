@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://do4efkm1i01f4"]
+[gd_scene load_steps=4 format=3 uid="uid://do4efkm1i01f4"]
 
 [ext_resource type="PackedScene" uid="uid://dc2f3tgdp3m8k" path="res://entities/characters/Player.tscn" id="1_vp2nm"]
 [ext_resource type="PackedScene" uid="uid://b2kkkek1thiwr" path="res://entities/characters/Enemy.tscn" id="2_ax34d"]
+[ext_resource type="Script" path="res://scripts/ui/UIComponent.cs" id="3_m2d6f"]
 
 [node name="Game" type="Node2D"]
 
@@ -18,16 +19,27 @@ position = Vector2(685, -10)
 
 [node name="Container" type="CanvasLayer" parent="."]
 
-[node name="Container" type="Control" parent="Container"]
+[node name="Container" type="Control" parent="Container" node_paths=PackedStringArray("Player")]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_m2d6f")
+Player = NodePath("../../Player")
 
 [node name="Weapon" type="Label" parent="Container/Container"]
-layout_mode = 2
-offset_right = 70.0
-offset_bottom = 23.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -70.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
 size_flags_horizontal = 0
 size_flags_vertical = 0
-text = "WEAOPN"
+text = "Weapon"

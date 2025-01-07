@@ -32,7 +32,6 @@ public partial class WeaponsComponent : Node2D {
         else if (_currentWeapon == Weapon.ROCKET) {
             _currentWeapon = Weapon.LASER;
         }
-        GD.Print(_currentWeapon);
         EmitSignal(SignalName.WeaponSwitched, WeaponUtils.ToVariant(_currentWeapon));
     }
     

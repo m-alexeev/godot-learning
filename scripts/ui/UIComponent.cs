@@ -11,7 +11,7 @@ public partial class UIComponent : Control {
     private WeaponsComponent _weaponsComponent;
 
     public override void _Ready() {
-        _weaponsComponent = Player.GetNode<WeaponsComponent>("WeaponComponent");
+        _weaponsComponent = Player.GetNode<WeaponsComponent>("WeaponsComponent");
         _weaponLabel = GetNode<Label>("Weapon");
         _weaponsComponent.WeaponSwitched += SetWeaponLabel;
         

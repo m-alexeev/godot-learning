@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Godot.Collections;
 using spacewar.scripts.enemies;
@@ -12,7 +14,7 @@ public partial class TrackingComponent : Node2D {
     
     private Node2D _trackedTarget;
     private Node2D _tracker;
-    private Array<Node2D> _targetsInRange = new() ;
+    private List<Node2D> _targetsInRange = new() ;
     
     public Node2D TrackedTarget => _trackedTarget;
 
@@ -23,6 +25,7 @@ public partial class TrackingComponent : Node2D {
     }
 
     public override void _PhysicsProcess(double delta) {
+        CleanupFreedTargets();
         float minAngle = MaxTrackingAngle;
         Node2D prevTarget = _trackedTarget;
         Node2D newTarget = null;
@@ -42,8 +45,14 @@ public partial class TrackingComponent : Node2D {
             EmitSignal(SignalName.TrackingTarget, newTarget);
         }
     }
-    
 
+
+    private void CleanupFreedTargets() {
+        if (_targetsInRange.Count > 0)
+            GD.Print(IsInstanceValid(_targetsInRange[0]));
+        _targetsInRange.RemoveAll(target => !IsInstanceValid(target));
+        GD.Print(_targetsInRange.Count);
+    }
 
     private void TrackingAreaOnAreaEntered(Area2D otherArea) {
         if (otherArea.GetOwner().Name.Equals(NameOfTargets)) {
@@ -52,6 +61,7 @@ public partial class TrackingComponent : Node2D {
     }
 
     private void TrackingAreaOnAreaExited(Area2D otherArea) {
+        CleanupFreedTargets();
         if (otherArea.GetOwner().Name.Equals(NameOfTargets)) {
            _targetsInRange.Remove(otherArea.GetOwner<Node2D>()); 
         }

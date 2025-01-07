@@ -15,7 +15,6 @@ public partial class TargetingState: State {
         AnimatedSprite2D.SetAnimation("idle");
         AnimatedSprite2D.Play();
         
-        GD.Print("Targeting");
         _player = (Player)GetTree().GetFirstNodeInGroup("Player");
         _enemy = GetParent().GetParent<Enemy>();
         _thrustMovement = _enemy.GetNode<ThrustMovement>("ThrustMovement");

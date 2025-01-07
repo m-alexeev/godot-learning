@@ -17,7 +17,6 @@ public partial class ActionLockOn : State {
     [Export] public WeaponsComponent WeaponsComponent;
 
     public override void Enter() {
-        GD.Print("Locking State");
         _tracker = GetOwner<Node2D>();
         if (_lockOnSprite == null) {
             _lockOnSprite = new Sprite2D();
