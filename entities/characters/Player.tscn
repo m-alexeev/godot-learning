@@ -69,12 +69,12 @@ animations = [{
 "speed": 20.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_thrustMovement", "_inputHandler", "_weaponsHandler") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_thrustMovement", "_inputHandler", "_weaponsComponent") groups=["Player"]]
 collision_mask = 2
 script = ExtResource("1_nwhh0")
 _thrustMovement = NodePath("ThrustMovement")
 _inputHandler = NodePath("InputHandler")
-_weaponsHandler = NodePath("WeaponsComponent")
+_weaponsComponent = NodePath("WeaponsComponent")
 
 [node name="InputHandler" parent="." instance=ExtResource("2_ehiw5")]
 position = Vector2(0, -4)
@@ -136,11 +136,12 @@ IdleState = NodePath("../Idle")
 script = ExtResource("11_dvvt8")
 InitialState = NodePath("ActionIdle")
 
-[node name="ActionIdle" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("ActionLaser", "ActionCannon", "ActionTracking")]
+[node name="ActionIdle" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("ActionLaser", "ActionCannon", "ActionTracking", "WeaponsComponent")]
 script = ExtResource("12_px624")
 ActionLaser = NodePath("../ActionLaser")
 ActionCannon = NodePath("../ActionCannon")
 ActionTracking = NodePath("../ActionSeeking")
+WeaponsComponent = NodePath("../../WeaponsComponent")
 
 [node name="ActionLaser" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("IdleState", "ProjectileSpawns")]
 script = ExtResource("13_2hvhy")
@@ -166,17 +167,20 @@ LaunchCooldown = 500
 RocketProjectile = ExtResource("20_xs57w")
 RocketSpawns = [NodePath("../../WeaponsComponent/Rocket1"), NodePath("../../WeaponsComponent/Rocket2"), NodePath("../../WeaponsComponent/Rocket3")]
 
-[node name="ActionSeeking" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("TrackingComponent", "ActionLockOn")]
+[node name="ActionSeeking" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("ActionIdle", "TrackingComponent", "WeaponsComponent", "ActionLockOn")]
 script = ExtResource("19_0q1sy")
+ActionIdle = NodePath("../ActionIdle")
 TrackingComponent = NodePath("../../TrackingComponent")
+WeaponsComponent = NodePath("../../WeaponsComponent")
 ActionLockOn = NodePath("../ActionLockOn")
 
-[node name="ActionLockOn" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("ActionSeeking", "ActionShootRocket", "TrackingComponent")]
+[node name="ActionLockOn" type="Node2D" parent="ActionStateMachine" node_paths=PackedStringArray("ActionSeeking", "ActionShootRocket", "TrackingComponent", "WeaponsComponent")]
 script = ExtResource("21_biwss")
 ActionSeeking = NodePath("../ActionSeeking")
 ActionShootRocket = NodePath("../ActionRocket")
 LockOnImage = ExtResource("19_qss0v")
 TrackingComponent = NodePath("../../TrackingComponent")
+WeaponsComponent = NodePath("../../WeaponsComponent")
 
 [node name="WeaponsComponent" type="Node2D" parent="."]
 script = ExtResource("24_u0g1i")
